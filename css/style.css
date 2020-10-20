@@ -1,0 +1,313 @@
+ul,a,div{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	background-color: #000000;
+	margin: 0px;
+	padding: 0px;
+}
+
+a{text-decoration: none;}
+a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
+
+/* 主盒子 */
+#bigBox
+{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+/* 头部导航栏 */
+#biBox #banner
+{
+	width: 100%;
+	height: 50px;
+	display: flex;
+	position: fixed;
+	top: 0px;
+	z-index: 1000;
+	background-color: #313131;
+}
+
+/* logo盒子 */
+#banner #logo
+{
+	width: 60px;
+	height: 50px;
+	margin: 5px 10px;
+	overflow: hidden;
+}
+/* logo图片 */
+#banner #logo img
+{
+	width: 60px;
+	height: 40px;
+	float: left;
+}
+/* 装导航栏标题的盒子*/
+#banner #title
+{
+	width: 80%;
+}
+/* 导航栏标题a */
+#banner #title ul a
+{
+	text-align: center; 
+	float: left;
+	height: 50px; 
+	line-height: 50px;
+	font-size: 14px;
+	color: #b9b9b9;
+	margin-left:10px ; 
+	text-decoration: none;
+	
+}
+/* 鼠标经过时显示底部边框 */
+#banner #title a:hover
+{
+	border-bottom: 3px solid #3448bc;
+	color: #FFFFFF;
+}
+
+/* 登录字体效果 */
+#mainContent a:hover
+{
+	border-bottom: 1px solid #ffffff;
+} 
+
+/* 登录盒子 */
+#banner #titleRight
+{
+	position: relative;
+	width: 10%;
+	height: 50px;
+	line-height: 50px;
+	text-align: right;
+	margin-right: 50px;
+}
+/* 登录a */
+#banner #titleRight a
+{
+		color: #FFFFFF;
+		text-decoration: none;
+		font-size: small;
+		font-family: "黑体";
+		
+}
+/* 列表主盒子 */
+#mainContent
+{
+	margin: 0 auto;
+	/* width: 920px; */
+	width: 70%;
+	position: relative;
+	margin-top: 100px;
+	color: white;
+	/* border: #FFFFFF 0.125rem solid; */
+}
+/* 推荐标题 */
+#mainContent strong
+{
+	font-size: 18px;
+	height: 130px;
+}
+
+/* 头部显示区域轮番 */
+#rotation
+{
+	position: relative;
+	/* display: flex; */
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+/* 轮番图片 */
+#rotation img
+{
+	width: 65%;
+	padding: 0;
+	margin: 0;
+	height: 300px;
+	float: left;
+	
+}
+/* 轮播图对应内容 */
+#rotation #content
+{
+	color: white;
+	width: 35%;
+	height: 300px;
+	background-color: #313131;
+	float: left;
+}
+
+#content #nr
+{
+	padding: 20px;
+	width: 300px;
+	height: 220px;
+	margin-left:10px;
+}
+/* 轮播左右切换按钮 */
+#content input
+{
+	border: 0;
+	width: 60px;
+	height: 30px;
+	background-color: #313131;
+	color: white;
+	font-size: 20px;
+	/*清除聚焦时候的边框颜色*/
+	  outline: none;
+}
+/* 了解详情 */
+#content a
+{
+	text-decoration: none;
+	color: white;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+#content input:hover
+{
+	background-color: #909090;
+}
+
+/* 热门电影标题栏 */
+#hotMovieList
+{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	height: 50px;
+}
+#hotMovieList ul,li{
+	list-style: none;
+	margin-left:15px ;
+	float: left;
+}
+#hotMovieList  a{color: #B9B9B9;}
+#hotMovieList select {
+	width: 80px;
+	height: 25px;
+	/*清除聚焦时候的边框颜色*/
+	outline: none;
+	/*清除select的边框样式*/
+	border: none;
+	border-radius: 10px;
+	background-color: #000000;
+	color: white;
+	/*隐藏select的下拉图标*/
+	/* appearance: none; */
+}
+/* 热门电影列表 */
+#list
+{
+	width: 100%;
+	/* height: 500px; */
+	padding: 0;
+	margin: 0;
+	/* border: #FFFFFF 0.125rem solid; */
+	margin-top: 390px;
+
+}
+
+/* 图片列表 */
+/*弹性布局教程 
+https://blog.csdn.net/weixin_44869002/article/details/102702965?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-102702965.nonecase&utm_term=css%E7%9B%92%E5%AD%90%E5%88%86%E5%B8%83&spm=1000.2123.3001.4430 */
+#listImage
+{
+	width: 200px;
+	height: 300px;
+	font-size: 13px;
+	margin-left: 12px;
+	float: left;
+	display: flex|inline-flex;
+	
+	/* display:flex;
+	flex-direction:row */
+}
+#listImage img{
+	width: 190px;
+	height: 250px;
+	border-radius: 3px;
+	overflow: hidden;
+	justify-content:space-between;
+	/* flex: 1; */
+	
+}
+/* 视频分数样式 */
+#listImage strong{color: yellow;font-size: 15px;}
+
+
+/* 上下翻页 */
+#more
+{
+	position: flex;
+	width: 100%;
+	height: 50px;
+	margin: 0 auto;
+	/* 设置div为弹性布局 */
+	display: flex;
+	border-radius: 10px;
+	/* border: #FFFFFF 2px solid; */
+}
+#more a{
+	width: 200px;
+	height: 50px;
+	float: left;
+	text-align: center;
+	color: white;
+	text-decoration: none;
+	justify-content: space-between;
+	/* 设置控件比重(父控件需要设置为弹性布局才能使用) */
+	flex: 1;
+}
+
+/* 页尾信息 */
+#footer
+{
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	/* display: flex;把该盒子设为弹性布局 */
+	display: flex;
+	margin: 0;
+	padding: 0;
+	color: white;
+	background-color: #242424;
+}
+#footerLeft,#footerMind,#footerRight
+{
+	/* flex：1  比重数 */
+	flex: 1;
+	height: 100px;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 100px;
+}
+#footerLeft a{color: #EEEEEE;font-size: 14px;}
+#footerMind span{color: #EEEEEE;font-size: 14px;}
+#footerRight button
+{
+	outline: none;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+	border: 3px solid#EEEEEE;
+	margin-left: 20px;
+	background-color: #313131;	
+}
+#footerRight button:hover
+{	
+	border:3px solid #dad4c9 ;
+	color: #ffff00;
+}
