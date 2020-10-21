@@ -10,7 +10,7 @@ new Vue({
 		switchTemp: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
 		rotationIndex: 0,
 		videoNavigationTitle: '热门电影',
-		loadingTip: '点击返回顶部',
+		loadingTip: '点击加载更多',
 		hotMovie: [],
 		rotationArr: [{
 				path: 'https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2621473195.webp',
@@ -47,8 +47,8 @@ new Vue({
 					page_start: this.page_start
 				}
 			}).then(response => {
-				this.loadingTip = '点击返回顶部';
-				if (response.data.subjects == '') {
+				this.loadingTip = '点击加载更多';
+				if (response.data.subjects.length == 0) {
 					alert('额!没有更多数据了');
 				} else {
 					//把返回的数据保存到hotMovie数组中
@@ -102,6 +102,28 @@ new Vue({
 				}
 			}
 		},
+		//实现点击加载更多(原有的基础上进行累加)
+		loadMore: function() {
+			this.page_start += 30;
+			this.loadingTip = '加载中.....';
+			axios.get('backJson.php', {
+				params: {
+					type: this.videoType,
+					tag: this.tag,
+					page_limit: this.page_limit,
+					page_start: this.page_start
+				}
+			}).then(response => {
+				this.loadingTip = '点击加载更多';
+				if (response.data.subjects.length == 0) {
+					alert('额!没有更多数据了');
+				} else {
+					//把返回的数据追加到hotMovie数组中(让老数据拼接上新数据)
+					this.hotMovie = this.hotMovie.concat(response.data.subjects);
+				}
+
+			})
+		},
 		//实现选中【顶部】导航栏时显示底部边框颜色：border-bottom
 		changeStyle(index) {
 			this.setIndex = index;
@@ -151,4 +173,3 @@ new Vue({
 	}
 
 })
-
