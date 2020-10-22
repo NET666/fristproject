@@ -1,6 +1,7 @@
 new Vue({
 	el: "#biBox",
 	data: {
+		//标题栏样式
 		navigationBarStyle: 'border-bottom: #3448BC 3px solid;color:white',
 		setIndex: 0,
 		hotSetIndedx: 0,
@@ -8,35 +9,32 @@ new Vue({
 		hotNavigationBar: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
 		hotTvNavigationBar: ['热门', '国产剧', '综艺', '美剧', '日剧', '韩剧', '日本动画', '纪录片'],
 		switchTemp: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
-		rotationIndex: 0,
 		videoNavigationTitle: '热门电影',
 		loadingTip: '点击加载更多',
+		//视频数组
 		hotMovie: [],
-		rotationArr: [{
-				path: 'https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2621473195.webp',
-				title: '喜宝',
-				rate: '3.4分',
-				url: 'https://movie.douban.com/subject/27611667/?from=showing'
-			},
-			{
-				path: 'https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2621038906.webp',
-				title: '掬水月在手',
-				rate: '8.3分',
-				url: 'https://movie.douban.com/subject/34914949/?from=showing'
-			},
-			{
-				path: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2622417580.webp',
-				title: '七号房的礼物 7',
-				rate: '7.8分',
-				url: 'https://movie.douban.com/subject/34875369/?from=showing'
-			},
-		],
 		videoType: 'movie',
 		tag: '热门',
 		page_limit: 30,
-		page_start: 0
+		page_start: 0,
+		//控制轮番图索引
+		rotationIndex: 0,
+		rotationArr: [],
+		//播放视频url
+		videoUrl:'',
+		//控制video控件的隐藏与显示
+		isPlay:false
+
 	},
+
 	methods: {
+		//获取头部轮番图视频信息
+		getRotationVideoData() {
+			axios.get('getNavitationBar.php').then(response => {
+				console.log(response.data);
+				this.rotationArr = response.data;
+			})
+		},
 		//发送请求,获取视频数据
 		getHotMovieData() {
 			axios.get('backJson.php', {
@@ -50,6 +48,7 @@ new Vue({
 				this.loadingTip = '点击加载更多';
 				if (response.data.subjects.length == 0) {
 					alert('额!没有更多数据了');
+					this.page_start -= 30;
 				} else {
 					//把返回的数据保存到hotMovie数组中
 					this.hotMovie = response.data.subjects;
@@ -117,6 +116,7 @@ new Vue({
 				this.loadingTip = '点击加载更多';
 				if (response.data.subjects.length == 0) {
 					alert('额!没有更多数据了');
+					this.page_start -= 30;
 				} else {
 					//把返回的数据追加到hotMovie数组中(让老数据拼接上新数据)
 					this.hotMovie = this.hotMovie.concat(response.data.subjects);
@@ -164,12 +164,23 @@ new Vue({
 			} else {
 				this.rotationIndex += 1;
 			}
+		},
+		//播放视频
+		play: function(videoName){
+			//this.isPlay = true;
+			//this.videoUrl = 'https://z1.m1907.cn/?jx='+videoName;
+			//定位到video播放位置
+			//location.href = '#video';
+			//在新窗口打开播放
+			window.open('https://v.6hu.cc/dd1/?v='+videoName);
 		}
 	},
+	//mounted:监听事件在这个方法
 	mounted() {
 		//4秒执行一次autoRotation函数
 		setInterval(this.autoRotation, 4000);
 		this.getHotMovieData();
+		this.getRotationVideoData();
 	}
 
 })

@@ -33,13 +33,17 @@
 
 			</div>
 			<div id="mainContent">
-				<strong id="newRecommend">正在热播</strong>
-				<!-- 头部显示区域轮番 -->
-				<div id="rotation">
+				<strong id="newRecommend">正在热映</strong>
+				<!-- rotationArr[rotationIndex]!=null:这句是判断数组是否为空,如果为空,则不进行数据渲染,
+				因为数据是从后台获取的，请求数据需要时间,没有获得数据之前就进行渲染会报这样的错误
+				(Error in render: "TypeError: Cannot read property 'XXXXX' of undefined")
+				 -->
+				 <!-- 头部显示区域轮番 -->
+				<div id="rotation" v-if="rotationArr[rotationIndex]!=null">
 					<!-- 轮播图片 -->
 					<div id="image">
 						<!-- style="object-fit: cover; cover等比缩放, none-->
-						<img :src="rotationArr[rotationIndex].path">
+						<img :src="rotationArr[rotationIndex].image" @click="play(rotationArr[rotationIndex].title)">
 					</div>
 					<!-- 轮播图片对应内容 -->
 					<div id="content">
@@ -48,15 +52,16 @@
 							<input type="button" value="<" @click='left' />
 							<input type="button" value=">" @click='right' />
 							<h3 v-text="rotationArr[rotationIndex].title">哪吒</h3>
-							<span v-text="rotationArr[rotationIndex].rate">3.5分</span>
+							<span v-text="rotationArr[rotationIndex].rate==null?'暂无评分':rotationArr[rotationIndex].rate+'分'">3.5分</span>
 						</div>
-						<a :href="rotationArr[rotationIndex].url" :src='rotationArr[rotationIndex].url'>了解详情---></a>
+						<a :href="rotationArr[rotationIndex].url" target="_blank">了解详情---></a>
 					</div>
 				</div>
 				<!-- 列表区域 -->
 				<div id="list">
 					<div id="hotMovieList">
 						<strong v-text="videoNavigationTitle">热门电影</strong>
+						<!-- 下拉选择列表 -->
 						<select name="slectVideoType" @click="getSelectIndex($event)">
 							<option value="movie">热门电影</option>
 							<option value="tv">热门电视</option>
@@ -68,13 +73,17 @@
 							</li>
 						</ul>
 					</div>
+					<!-- 视频列表 -->
 					<div id="listBox" v-for="(hot,index) in hotMovie">
 						<div id="listImage">
-							<img :src="hot.cover"><br>
+							<img :src="hot.cover" @click="play(hot.title)"><br>
 							<strong>{{hot.rate}}分 </strong><label>{{hot.title}}</label>
 						</div>
 					</div>
-
+				<!-- 视频播放框(暂未使用) -->
+				<div id="video" v-if="isPlay">
+					<video :src="videoUrl" autoplay></video>
+				</div>	
 				</div>
 				<!-- 上下页翻页 -->
 				<div id="more">
@@ -99,5 +108,6 @@
 			</div>
 		</div>
 	</body>
+	<!-- js实现代码-->
 	<script type="text/javascript" src="js/my.js"></script>
 </html>
