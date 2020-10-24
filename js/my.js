@@ -5,7 +5,7 @@ new Vue({
 		navigationBarStyle: 'border-bottom: #3448BC 3px solid;color:white',
 		setIndex: 0,
 		hotSetIndedx: 0,
-		navigationBar: ['首页', '电视', '电影', '热门电影', '热门电视', '音乐'],
+		navigationBar: ['首页', '搜一搜', '电影', '热门电影', '热门电视', '音乐'],
 		hotNavigationBar: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
 		hotTvNavigationBar: ['热门', '国产剧', '综艺', '美剧', '日剧', '韩剧', '日本动画', '纪录片'],
 		switchTemp: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
@@ -20,24 +20,20 @@ new Vue({
 		//控制轮番图索引
 		rotationIndex: 0,
 		rotationArr: [],
-		//播放视频url
-		videoUrl:'',
-		//控制video控件的隐藏与显示
-		isPlay:false
 
 	},
 
 	methods: {
 		//获取头部轮番图视频信息
 		getRotationVideoData() {
-			axios.get('getNavitationBar.php').then(response => {
+			axios.get('php/getNavitationBar.php').then(response => {
 				console.log(response.data);
 				this.rotationArr = response.data;
 			})
 		},
 		//发送请求,获取视频数据
 		getHotMovieData() {
-			axios.get('backJson.php', {
+			axios.get('php/backJson.php', {
 				params: {
 					type: this.videoType,
 					tag: this.tag,
@@ -105,7 +101,7 @@ new Vue({
 		loadMore: function() {
 			this.page_start += 30;
 			this.loadingTip = '加载中.....';
-			axios.get('backJson.php', {
+			axios.get('php/backJson.php', {
 				params: {
 					type: this.videoType,
 					tag: this.tag,
@@ -127,6 +123,9 @@ new Vue({
 		//实现选中【顶部】导航栏时显示底部边框颜色：border-bottom
 		changeStyle(index) {
 			this.setIndex = index;
+			if(index==1){
+				window.open('details.html');
+			}
 		},
 		//实现选中【热门电影】导航栏时显示底部边框颜色：border-bottom
 		hotChangeStyle(index, e) {
@@ -167,12 +166,16 @@ new Vue({
 		},
 		//播放视频
 		play: function(videoName){
-			//this.isPlay = true;
-			//this.videoUrl = 'https://z1.m1907.cn/?jx='+videoName;
-			//定位到video播放位置
-			//location.href = '#video';
-			//在新窗口打开播放
 			window.open('https://v.6hu.cc/dd1/?v='+videoName);
+		},
+		//视频详情
+		details(id,image){
+			$.cookie.raw = true;//默认情况下，读取和写入 cookie 的时候自动进行编码和解码（使用 encodeURIComponent 编码，decodeURIComponent 解码）。要关闭这个功能设置 raw:true 即可
+			$.cookie.json = true;//设置 cookie 的数据使用 json 存储与读取，这时就不需要使用 JSON.stringify 和 JSON.parse 了
+			//保存视频图片网络地址视频id,用于另一个页面调用,cookie不写时间的话,关闭浏览器才会清空cookie保存的东西
+			$.cookie('iamge_url',image,{path:'/'});//保存图片链接到cookie中：path:'/'：保存路径在网站跟目录
+			$.cookie('id',id,{path:'/'});//保存视频id
+			window.open('details.html');
 		}
 	},
 	//mounted:监听事件在这个方法

@@ -7,7 +7,7 @@
  */
 
 header("content-type:application/json;charset=utf-8");
-include_once 'phpQuery/phpQuery/phpQuery.php';
+include_once '../phpQuery/phpQuery/phpQuery.php';
 phpQuery::newDocumentFile('https://movie.douban.com/');
 $images = pq(".poster img"); //爬取.poster类名中的所有img标签（用于下面获取图片地址和影视名称）
 $getUrl = pq(".title a"); //获取.title类名中的所有 a 标签（用于下面获取影视链接）
@@ -15,7 +15,7 @@ $getRate = pq(".rating .subject-rate");//爬取.rating类名里的所有 .subjec
 $getImages =  array(array('image'=>'','title'=>'','url'=>'','rate'=>''));
 $i = 0;
 foreach ($images as $img){
-	if($i==14){
+	if($i==13){
 		break;
 	}else{
 		$getImages[$i]['image'] = pq($img)->attr("src"); //获取对应标签里面的src属性值
@@ -25,7 +25,7 @@ foreach ($images as $img){
 }
 $j = 0;
 foreach ($getUrl as $item){
-	if($j==14){
+	if($j==13){
 		break;
 	}else{
 		$getImages[$j]['url'] = pq($item)->attr("href");//获取对应标签里面的href属性值
@@ -34,7 +34,7 @@ foreach ($getUrl as $item){
 }
 $k = 0;
 foreach($getRate as $Rate){
-	if($k==14){
+	if($k==13){
 		break;
 	}else{
 		$getImages[$k]['rate'] = pq($Rate)->text();

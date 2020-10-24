@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="referrer" content="no-referrer" />
+		<link rel="stylesheet" type="text/css" href="css/details.css" />
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- 官网提供的 axios 在线地址 -->
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<!-- jquery -->
+		<script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jQuery Cookie 插件在线地址用于方便获取cookie的值 -->
+		<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<title>视频详情</title>
+	</head>
+	<body>
+		<div id="biBox">
+			<!-- 导航栏 -->
+			<div id="banner">
+				<!-- 网站logon -->
+				<div id="logo">
+					<img src="img/diylogo1.png">
+				</div>
+				<!-- 导航栏左边标题 -->
+				<div id="title">
+					<ul>
+						<a href="javascript:void(0);" v-for="(item,index) in navigationBar" @click="changeStyle(index)" :style="index==setIndex?navigationBarStyle:''"
+						 v-text="item">首页</a>
+					</ul>
+				</div>
+				<!-- 导航栏右边标题 -->
+				<div id="titleRight">
+					<a href="login.html" target="_blank" title="登录">登录</a>
+				</div>
+
+			</div>
+			<div id="mainContent">
+				<!-- 详情-->
+				<div id="details" v-show="videoArr.types!=null">
+					<div class="head"><span><a href="index.html">返回首页></a></span><span>视频详情</span></div>
+					<div class="headtitle"><strong style="color: #b1b1b1;" v-text="videoArr.title">爱与怪物</strong></div>
+					<div id="video-details">
+						<div class="show">
+							<!-- 图片 -->
+							<img :src="image" />
+						</div>
+						<div class="show-content">
+							<ul>
+								<li>
+									<span v-text="'导演: '+videoArr.directors">导演:777</span>
+									<span v-text="'主演: '+videoArr.actors">主演:777</span>
+									<span v-text="'类型: '+videoArr.types">类型:恐怖</span>
+									<span v-text="'上映: '+videoArr.release_year">时间:2020年</span>
+									<span v-text="'片长: '+videoArr.duration">片长:24分</span>
+									<span v-text="'制片国家: '+videoArr.region">制片国家:777</span>
+									<span v-text="'视频类型: '+videoArr.subtype">视频类型:电影</span>
+								</li>
+							</ul>
+						</div>
+						<div class="show" v-if="videoArr.short_comment!=null">
+							<span>豆瓣评分:</span><strong style="color: yellow;" v-text="videoArr.rate">9.0</strong><br /><br />
+							<span>当前评论数量: <span v-text="commetMessage.length"></span> </span><br /><br />
+							<span v-text="videoArr.short_comment.author+': '"></span>
+							<textarea readonly="readonly" v-text="videoArr.short_comment.content"></textarea>
+						</div>
+					</div>
+					<!-- 评论列表 -->
+					<div id="comment">
+						<div id="commentList" v-for="getComment in commetMessage" v-if="commetMessage!=null">
+							<!-- 评论信息 -->
+							<span style="font-size: 12px;color: #eaeaea" v-text="getComment[1]+' 发布于 '"></span>
+							<span style="font-size: 12px;color: #c2c2c2" v-text="getComment[3]"></span><br />
+							<label style="font-size:15px;color: #999999" v-text="getComment[2]">评论内容</lable>
+						</div>
+						<!-- 评论发表输入框 -->
+						<div id="contentInput">
+							<input type="text" v-model="inputValue" @keyup.enter="addComment" maxlength="200" placeholder="请发表,你对本视频的看法/按下'Enter'即可发布" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#biBox',
+			data: {
+				setIndex: 0,
+				navigationBarStyle: 'border-bottom: #3448BC 3px solid;color:white',
+				navigationBar: ['首页', '搜一搜', '电影', '热门电影', '热门电视', '音乐'],
+				image: '',
+				//视频信息数组
+				videoArr: [],
+				//评论信息数组
+				commetMessage: [],
+				inputValue: '',
+				videoId: '',
+			},
+			methods: {
+				changeStyle(index) {
+					this.setIndex = index;
+				},
+				onload: function() {
+					$.cookie.raw = true; //默认情况下，读取和写入 cookie 的时候自动进行编码和解码（使用 encodeURIComponent 编码，decodeURIComponent 解码）。要关闭这个功能设置 raw:true 即可
+					$.cookie.json = true; //设置 cookie 的数据使用 json 存储与读取，这时就不需要使用 JSON.stringify 和 JSON.parse 了
+					this.image = $.cookie('iamge_url').replace(/\"/g, ""); //replace(/\"/g,""):把读出来的数据引号去掉
+					this.videoId = $.cookie('id').replace(/\"/g, "");
+					axios.get('php/Dodetails.php?id=' + this.videoId).then(response => {
+						this.videoArr = response.data.subject;
+					})
+				},
+				//添加评论(this.videoId:用于区分视频标识)
+				addComment: function() {
+					//this.inputValue
+					axios.get('php/comment.php?content=' + this.inputValue + '&id=' + this.videoId).then(response => {
+						//清空输入框
+						this.inputValue = '';
+						//提交评论完毕后,执行show函数,显示评论
+						this.show();
+					})
+				},
+				//获取对应Id视频的评论
+				show() {
+					axios.get('php/show.php?id=' + this.videoId).then(response => {
+						console.log(response);
+						if (response.data !== '当前视频暂无评论') {
+							//把返回的数据追加到组数中
+							this.commetMessage = this.commetMessage.concat(response.data);
+						}
+					})
+				}
+			},
+			mounted() {
+				//mounted这个方法用于页面加载时执行的方法写这里（或者用create()方法）
+				this.onload();
+				this.show();
+			}
+		})
+	</script>
+</html>
