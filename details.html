@@ -107,6 +107,8 @@
 				inputValue: '',
 				//视频ID
 				videoId: '',
+				//用于取出评论控制
+				limit_start:0
 			},
 			methods: {
 				changeStyle(index) {
@@ -131,10 +133,18 @@
 								alert('请先登录');
 							}else{
 								axios.get('php/comment.php?content=' + this.inputValue + '&id=' + this.videoId).then(response => {
-									//清空输入框
-									this.inputValue = '';
-									//提交评论完毕后,执行show函数,显示评论
-									this.show();
+									if(response.data == '发布成功'){
+										//清空输入框
+										this.inputValue = '';
+										//用于后端判断
+										this.limit_start +=1;
+										//提交评论完毕后,执行show函数,显示评论
+										this.show();
+									}else{
+										alert('发布失败');
+										this.show();
+									}
+									
 								})
 							}
 						})
@@ -142,7 +152,7 @@
 				},
 				//获取对应Id视频的评论
 				show() {
-					axios.get('php/show.php?id=' + this.videoId).then(response => {
+					axios.get('php/show.php?id=' + this.videoId+'&limit_start='+this.limit_start).then(response => {
 						//console.log(response);
 						if (response.data !== '当前视频暂无评论') {
 							//把返回的数据追加到组数中
