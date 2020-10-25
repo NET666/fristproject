@@ -1,0 +1,99 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	/* background-image: url(../images/body_img.jpg); */
+	background-repeat: no-repeat;
+}
+
+
+#bigBox
+{
+	margin: 0 auto;
+	margin-top: 200px;
+	padding: 20px  50px 50px;
+	background-color: #00002399;
+	text-align: center;
+	width: 400px;
+	height:300px;
+	border-radius: 15px;
+}
+
+
+
+#bigBox h2
+{
+	color: white;
+	font-weight:1.5625rem;
+}
+
+#bigBox .inputBox
+{
+	color: white;
+}
+
+#bigBox .inputBox
+{
+	margin-top: 40px;
+}
+
+#bigBox .inputBox .inputText input
+{
+	border: 0;
+	padding: 10px; 
+	margin-left: 30px;
+	border-bottom: 1px solid white;
+	background-color: #3d3d3d90;
+	color: white;
+	
+}
+
+
+#bigBox .inputBox .inputButton
+{
+	border: 0;
+	width: 170px;
+	height: 28px;
+	color: white;
+	margin-left: 20px;
+	margin-top: 50px;
+	border-radius: 20px;
+	font-size: large;
+	background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+
+#bigBox .inputBox .inputText .password-img
+{
+	 position: absolute;
+	 width: 20px;
+	 height: 20px;
+	 margin-top: 10px;
+} 
+
+#bigBox .inputBox .confirmPassword-img
+{
+	  position: relative;
+	  right: 3px;
+	  bottom: 70px;
+	  width: 22px;
+	  height: 22px;
+	  	
+} 
+
+#bigBox .inputBox .inputText .view
+{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	margin-left: 200px;
+}
+
+
+
+#bigBox .inputBox span a
+{
+	position: absolute;
+	margin-top: 45px;
+	color: white;
+	margin-left: 100px;
+}

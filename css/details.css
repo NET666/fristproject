@@ -79,6 +79,7 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 #mainContent{
 	position: relative;
 	display: flex;
+	/* flex-direction: column; */
 	margin: 0 auto;
 	width: 70%;
 	height: 500px;
@@ -106,10 +107,10 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 /* 登录a */
 #banner #titleRight a
 {
-		color: #FFFFFF;
-		text-decoration: none;
-		font-size: small;
-		font-family: "黑体";
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: small;
+	font-family: "黑体";
 		
 }
 
@@ -220,4 +221,15 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 	 color: #e7e7e7;
 	 border-radius: 5px;
 	 background-color: #2c2c2c; 
+	 margin-bottom: 30px;
  }
+ 
+#list-biBox{width: 100%;}
+/* 网站页尾信息 */
+/* #footer{
+	position: absolute;
+	width: 100%;
+	background-color: #e8e8e8;
+}#footer span{
+	margin-top: 50px;
+} */

@@ -30,9 +30,9 @@
 						 v-text="item">首页</a>
 					</ul>
 				</div>
-				<!-- 导航栏右边标题 -->
+				<!-- 导航栏右边标题,onclick="return false":表示点击不跳转 -->
 				<div id="titleRight">
-					<a href="login.html" target="_blank" title="登录">登录</a>
+					<a href="login.html" onclick="return false" target="_blank" v-text="isGetName" @click="isLogged($event)" title="登录">登录</a>
 				</div>
 
 			</div>
@@ -58,7 +58,7 @@
 							<h3 v-text="rotationArr[rotationIndex].title">哪吒</h3>
 							<span v-text="rotationArr[rotationIndex].rate==null?'暂无评分':rotationArr[rotationIndex].rate+'分'">3.5分</span>
 						</div>
-						<a :href="rotationArr[rotationIndex].url" target="_blank">了解详情---></a>
+						<a href="Javascript:void(0)" target="_blank" @click="details(rotationArr[rotationIndex].url,rotationArr[rotationIndex].image)">了解详情---></a>
 					</div>
 				</div>
 				<!-- 列表区域 -->

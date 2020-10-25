@@ -2,7 +2,8 @@ new Vue({
 	el: "#biBox",
 	data: {
 		//标题栏样式
-		navigationBarStyle: 'border-bottom: #3448BC 3px solid;color:white',
+		navigationBarStyle: 'border-bottom: #ffff00 3px solid;color:white',
+		isGetName:'登录',
 		setIndex: 0,
 		hotSetIndedx: 0,
 		navigationBar: ['首页', '搜一搜', '电影', '热门电影', '热门电视', '音乐'],
@@ -120,6 +121,25 @@ new Vue({
 
 			})
 		},
+		//验证用户是否已经登录
+		userVrification: function(){
+			axios.get('php/userVrification.php').then(response =>{
+				if(response.data==false){
+					this.isGetName = '登录';
+				}else{
+					this.isGetName = response.data;
+					console.log(response.data);
+				}
+			})
+		},
+		//用于判断有上方登录按钮时是否跳转登录
+		isLogged(e){
+			if(e.currentTarget.innerText !='登录'){
+				alert('已经登录了');
+			}else{
+				window.open('login.html');
+			}
+		},
 		//实现选中【顶部】导航栏时显示底部边框颜色：border-bottom
 		changeStyle(index) {
 			this.setIndex = index;
@@ -174,9 +194,11 @@ new Vue({
 			$.cookie.json = true;//设置 cookie 的数据使用 json 存储与读取，这时就不需要使用 JSON.stringify 和 JSON.parse 了
 			//保存视频图片网络地址视频id,用于另一个页面调用,cookie不写时间的话,关闭浏览器才会清空cookie保存的东西
 			$.cookie('iamge_url',image,{path:'/'});//保存图片链接到cookie中：path:'/'：保存路径在网站跟目录
+			var id=id.replace(/[^0-9]/ig,"");//只保留数字,因为顶部轮番图视频id在url中,所以使用正则处理
 			$.cookie('id',id,{path:'/'});//保存视频id
 			window.open('details.html');
 		}
+		
 	},
 	//mounted:监听事件在这个方法
 	mounted() {
@@ -184,6 +206,7 @@ new Vue({
 		setInterval(this.autoRotation, 4000);
 		this.getHotMovieData();
 		this.getRotationVideoData();
+		this.userVrification();
 	}
 
 })
