@@ -68,7 +68,7 @@
 							password: this.inputPasw,
 						}
 					}).then(rsponse => {
-						if (rsponse.data == true) {
+						if (rsponse.data == '1') {
 							window.location.href = 'index.html';
 						} else {
 							alert('用户名或密码错误');

@@ -4,18 +4,19 @@ body
 	padding: 0;
 	/* background-image: url(../images/body_img.jpg); */
 	background-repeat: no-repeat;
+	background-color: #313131;
 }
 
 
 #bigBox
 {
-	margin: 0 auto;
-	margin-top: 200px;
-	padding: 20px  50px 50px;
-	background-color: #00002399;
+	background-color: #00002399; 
 	text-align: center;
 	width: 400px;
 	height:300px;
+	margin: 0 auto;
+	padding: 20px 40px 60px;
+	margin-top: 150px;
 	border-radius: 15px;
 }
 

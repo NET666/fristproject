@@ -92,15 +92,15 @@
 									password: this.inputPasw,
 								}
 							}).then(rsponse => {
-								let re = rsponse.data;
-								if (re == true) {
+								var re = rsponse.data;
+								if (re == '1') {
 									alert('注册成功');
 									window.location.href = 'login.html';
 								}
-								if (re = false) {
+								else if (re = '0') {
 									alert('用户名已经被注册');
 								}
-								if (re == erro) {
+								else if (re == '-1') {
 									alert('注册是失败,请再试有一次');
 								}
 							})

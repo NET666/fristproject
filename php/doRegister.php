@@ -21,15 +21,15 @@ if($link){
 	  $sql = "select * from login where username='$name'";
 	  $res = $conn->checkUser($link, $sql);
 	  if($res){
-		  echo 'false'; //用户名已经存在,返回false
+		  echo '0'; //用户名已经存在,返回false
 	  }else{
 		  //注册
 		  $sql = "insert into login(username,password,register_time) values ('$name','$password',now())";
 		  $res = $conn->dataInsert($link, $sql);
 		  if($res){
-			  echo 'true';//注册成功返回true
+			  echo '1';//注册成功返回true
 		  }else{
-			  echo 'erro';// 前端收到的是erro
+			  echo '-1';// 前端收到的是erro
 		  }
 	  }
 }
