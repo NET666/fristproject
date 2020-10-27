@@ -96,7 +96,7 @@
 				//导航栏选中是使用的样式
 				navigationBarStyle: 'border-bottom: #3448BC 3px solid;color:white',
 				//导航栏
-				navigationBar: ['首页', '搜一搜', '电影', '热门电影', '热门电视', '音乐'],
+				navigationBar: ['首页', '选影', '音乐', '热门电影', '热门电视', '关于'],
 				//视频图片url
 				image: '',
 				//视频信息数组
@@ -113,6 +113,9 @@
 			methods: {
 				changeStyle(index) {
 					this.setIndex = index;
+					if(index==0){
+						open('index.html');
+					}
 				},
 				onload: function() {
 					$.cookie.raw = true; //默认情况下，读取和写入 cookie 的时候自动进行编码和解码（使用 encodeURIComponent 编码，decodeURIComponent 解码）。要关闭这个功能设置 raw:true 即可

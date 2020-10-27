@@ -6,10 +6,10 @@ new Vue({
 		isGetName:'登录',
 		setIndex: 0,
 		hotSetIndedx: 0,
-		navigationBar: ['首页', '搜一搜', '电影', '热门电影', '热门电视', '音乐'],
-		hotNavigationBar: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
+		navigationBar: ['首页', '选影', '音乐', '热门电影', '热门电视', '关于'],
+		hotNavigationBar: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典','动作'],
 		hotTvNavigationBar: ['热门', '国产剧', '综艺', '美剧', '日剧', '韩剧', '日本动画', '纪录片'],
-		switchTemp: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典'],
+		switchTemp: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典','动作'],
 		videoNavigationTitle: '热门电影',
 		loadingTip: '点击加载更多',
 		//视频数组
@@ -144,7 +144,7 @@ new Vue({
 		changeStyle(index) {
 			this.setIndex = index;
 			if(index==1){
-				window.open('details.html');
+				window.open('choose.html');
 			}
 		},
 		//实现选中【热门电影】导航栏时显示底部边框颜色：border-bottom
