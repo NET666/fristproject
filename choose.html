@@ -67,7 +67,7 @@
 					</div>
 				</div>
 				<!-- 影视展示列表 -->
-				<div id="show-list">
+				<div id="show-list" v-if="videoArray!=null">
 					<div id="show" v-for="video in videoArray">
 						<img :src="video.cover" @click="play(video.title)"/><br>
 						<strong style="color: yellow;" v-text="video.rate+'分 '">7.0</strong>

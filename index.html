@@ -81,7 +81,9 @@
 					<div id="listBox" v-for="(hot,index) in hotMovie">
 						<div id="listImage">
 							<img :src="hot.cover" @click="play(hot.title)"><br>
-							<strong>{{hot.rate}}分 </strong><label>{{hot.title}}<br/><a  @click="details(hot.id,hot.cover)" style="color: #0080CC;">查看详情</a></label>
+							<strong>{{hot.rate}}分 </strong><label>{{hot.title}}<br/>
+							<a  @click="details(hot.id,hot.cover)" style="color: #0080CC;">查看详情</a>
+							<a  @click="comments(hot.id,hot.cover)" style="color: hotpink;margin-left: 15px;">豆瓣评论</a></label>
 						</div>
 					</div>
 				</div>

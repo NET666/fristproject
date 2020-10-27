@@ -206,11 +206,12 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 	width: 100%;
 	margin-top: 450px;
 }
-#comment #commentList{
+#commentList{
 	width: 100%;
 	min-height: 50px;
-	max-height: 80px;
+	height: 300px;
 	font-size: 13px;
+	margin-top: 20px;
 	border-bottom: 1px #a3a3a3 solid ;
 }
 /* 评论输入框区域 */

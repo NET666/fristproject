@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="referrer" content="no-referrer" />
 		<link rel="stylesheet" type="text/css" href="css/details.css" />
+		<link rel="stylesheet" type="text/css" href="css/comment.css" />
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 开发环境版本，包含了有帮助的命令行警告 -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -62,23 +63,29 @@
 							</div>
 							<div class="show" v-if="videoArr.short_comment!=null">
 								<span>豆瓣评分:</span><strong style="color: yellow;" v-text="videoArr.rate">9.0</strong><br /><br />
-								<span>本站评论数量: <span v-text="commetMessage.length"></span> </span><br /><br />
+								<!-- <span>本站评论数量: <span v-text="commetMessage.length"></span> </span> -->
 								<span v-text="videoArr.short_comment.author+': '"></span>
 								<textarea readonly="readonly" v-text="videoArr.short_comment.content"></textarea>
 							</div>
 						</div>
 						<!-- 评论列表 -->
-						<div id="comment">
-							<div id="commentList" v-for="getComment in commetMessage" v-if="commetMessage!=null">
+						<div id="comments">
+							<div id="commentx" v-for="getComment in commetMessage" v-if="commetMessage!=null">
 								<!-- 评论信息 -->
-								<span style="font-size: 12px;color: #eaeaea" v-text="getComment[1]+' 发布于 '"></span>
-								<span style="font-size: 12px;color: #c2c2c2" v-text="getComment[3]"></span><br />
-								<label style="font-size:15px;color: #999999" v-html="getComment[2]">评论内容</lable>
+								<span style="font-size: 13px;color: #aa5500" v-text="getComment.userName+' 发布于 '"></span>
+								<span style="font-size: 13px;color: #bebebe" v-text="getComment.commentTime"></span><br />
+								<label style="font-size:15px;color: #999999" v-text="getComment.commentContent">评论内容</lable>
 							</div>
 							<!-- 评论发表输入框 -->
-							<div id="contentInput">
+							<!-- <div id="contentInput">
 								<input type="text" v-model="inputValue" @keyup.enter="addComment" maxlength="200" 
 								placeholder="请发表你对本视频的看法/按下'Enter'即可发布" />
+							</div> -->
+							<div id="comment-ifo">
+								<span><a href="JavaScript:void(0)" @click="moreComment($event)">上一页</a></span>
+								<span><a @click="loadMore()" v-text="loadTip" style="color: yellow;" href="JavaScript:void(0)">
+								加载中.....</a></span>
+								<span><a href="JavaScript:void(0)" @click="moreComment($event)">下一页</a></span>
 							</div>
 						</div>
 					</div>
@@ -90,6 +97,9 @@
 		var app = new Vue({
 			el: '#biBox',
 			data: {
+				//上下翻页提示
+				loadTip:'加载完成',
+				//登录判断
 				isGetName:'登录',
 				//判断导航栏当前选中的是哪个
 				setIndex: 0,
@@ -108,7 +118,9 @@
 				//视频ID
 				videoId: '',
 				//用于取出评论控制
-				limit_start:0
+				limit_start:0,
+				//控制评论分页
+				start:0,
 			},
 			methods: {
 				changeStyle(index) {
@@ -126,40 +138,62 @@
 						this.videoArr = response.data.subject;
 					})
 				},
-				//添加评论(this.videoId:用于区分视频标识)
-				addComment: function() {
-					//this.inputValue
-					if(this.inputValue.length>1){
-						//判断是否已经登录
-						axios.get('php/userVrification.php').then(response =>{
-							if(response.data==false){
-								alert('请先登录');
-							}else{
-								axios.get('php/comment.php?content=' + this.inputValue + '&id=' + this.videoId).then(response => {
-									if(response.data == '发布成功'){
-										//清空输入框
-										this.inputValue = '';
-										//用于后端判断
-										this.limit_start +=1;
-										//提交评论完毕后,执行show函数,显示评论
-										this.show();
-									}else{
-										alert('发布失败');
-									}
-									
-								})
-							}
-						})
-					}
-				},
-				//获取对应Id视频的评论
-				show() {
-					axios.get('php/show.php?id=' + this.videoId+'&limit_start='+this.limit_start).then(response => {
-						//console.log(response);
-						if (response.data !== '当前视频暂无评论') {
-							//把返回的数据追加到组数中
-							this.commetMessage = this.commetMessage.concat(response.data);
+				//获取豆瓣评论
+				show(){
+					axios.get('php/doubanComment.php',{
+						params:{
+							id:this.videoId,
+							start:this.start,
 						}
+					}).then(response=>{
+						if(response.data[0].userName==null){
+							this.loadTip = '没有更多数据了~~~';
+							this.start -= 20;
+						}else{
+							this.commetMessage = response.data;
+							this.loadTip = '加载完成';
+							console.log(response.data);
+						}
+						
+					})
+				},
+				//评论上下翻页
+				moreComment(e){
+					if(e.currentTarget.innerText=='下一页'){
+						this.start +=20;
+						this.loadTip = '加载中....';
+						this.show();
+					}else{
+						if(this.start==0){
+							this.loadTip = '已经是第一页啦~~';
+						}else{
+							this.loadTip = '加载中....';
+							this.start -=20;
+							this.show();
+						}
+						
+					}
+					
+				},
+				//加载更多评论
+				loadMore(){
+					this.start += 20;
+					axios.get('php/doubanComment.php',{
+						params:{
+							id:this.videoId,
+							start:this.start,
+						}
+					}).then(response=>{
+						if(response.data[0].userName==null){
+							this.loadTip = '没有更多数据了~~~';
+							this.start -= 20;
+						}else{
+							//向commetMessage数组追加数据
+							this.commetMessage =this.commetMessage.concat(response.data);
+							this.loadTip = '加载完成';
+							console.log(response.data);
+						}
+						
 					})
 				},
 				//验证用户是否已经登录

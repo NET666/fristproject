@@ -197,9 +197,19 @@ new Vue({
 			var id=id.replace(/[^0-9]/ig,"");//只保留数字,因为顶部轮番图视频id在url中,所以使用正则处理
 			$.cookie('id',id,{path:'/'});//保存视频id
 			window.open('details.html');
+		},
+		//豆瓣视频评分
+		comments(id,image){
+			$.cookie.raw = true;
+			$.cookie.json = true;
+			$.cookie('iamge_url',image,{path:'/'});
+			var id=id.replace(/[^0-9]/ig,"");
+			$.cookie('id',id,{path:'/'});
+			window.open('comment.html');
 		}
 		
 	},
+	
 	//mounted:监听事件在这个方法
 	mounted() {
 		//4秒执行一次autoRotation函数

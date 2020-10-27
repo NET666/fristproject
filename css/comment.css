@@ -1,0 +1,31 @@
+#comments{
+	width: 100%;
+	position: relative;
+	margin-top: 40%;
+}
+#commentx{
+	min-height: 50px;
+	max-height: 300px;
+	margin-top: 20px;
+	padding: 5px;
+	width: 100%;
+	border-bottom: 1px dashed #96803f ;
+}
+
+#comment-ifo{
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	display: flex;
+}
+#comment-ifo span{
+	width: 20%;
+	height: 50px;
+	flex: 1;
+	line-height: 50px;
+	text-align: center;	
+}
+#comment-ifo a{
+	color: #bda04f;
+	text-decoration: none;
+}
