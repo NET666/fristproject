@@ -72,9 +72,10 @@
 						<div id="comments">
 							<div id="commentx" v-for="getComment in commetMessage" v-if="commetMessage!=null">
 								<!-- 评论信息 -->
-								<span style="font-size: 13px;color: #aa5500" v-text="getComment.userName+' 发布于 '"></span>
-								<span style="font-size: 13px;color: #bebebe" v-text="getComment.commentTime"></span><br />
-								<label style="font-size:15px;color: #999999" v-text="getComment.commentContent">评论内容</lable>
+								<span><img :src="getComment.userImage" style="width: 40px;height: 35px;"></span>
+								<span style="font-size: 13px;color: #dcdf32" v-text="getComment.userName+' 发布于 '"></span>
+								<span style="font-size: 13px;color: #bebebe" v-text="getComment.commentTime"></span><br /><br />
+								<label style="font-size:15px;color: #efefef" v-text="getComment.commentContent">评论内容</lable>
 							</div>
 							<!-- 评论发表输入框 -->
 							<!-- <div id="contentInput">
@@ -117,8 +118,6 @@
 				inputValue: '',
 				//视频ID
 				videoId: '',
-				//用于取出评论控制
-				limit_start:0,
 				//控制评论分页
 				start:0,
 			},

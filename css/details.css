@@ -204,15 +204,15 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 #comment{
 	position: relative;
 	width: 100%;
-	margin-top: 450px;
+	margin-top: 40%;
 }
 #commentList{
 	width: 100%;
 	min-height: 50px;
-	height: 300px;
+	max-height: 200px;
 	font-size: 13px;
 	margin-top: 20px;
-	border-bottom: 1px #a3a3a3 solid ;
+	border-bottom: 1px #9fa60f dashed ;
 }
 /* 评论输入框区域 */
 #comment #contentInput{width: 100%;margin-top:30px ;}

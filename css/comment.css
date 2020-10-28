@@ -6,11 +6,12 @@
 #commentx{
 	min-height: 50px;
 	max-height: 300px;
-	margin-top: 20px;
-	padding: 5px;
+	margin-top: 5px; 
+	padding: 20px;
 	width: 100%;
 	border-bottom: 1px dashed #96803f ;
 }
+
 
 #comment-ifo{
 	width: 100%;
