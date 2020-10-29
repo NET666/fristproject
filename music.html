@@ -51,7 +51,7 @@
 				isGetName:'登录',
 				setIndex: 2,
 				hotSetIndedx: 0,
-				navigationBar: ['首页', '选影', '音乐', '热门电影', '热门电视', '关于'],
+				navigationBar: ['首页', '选影', '音乐', '关于'],
 			},
 			methods: {
 				changeStyle(index) {
@@ -60,6 +60,9 @@
 						window.open('index.html');
 					}if(index == 1){
 						window.open('choose.html');
+					}
+					if(index == 3){
+						window.open('aboutMe.html');
 					}
 				}, 
 				//用于判断有上方登录按钮时是否跳转登录

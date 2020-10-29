@@ -72,16 +72,11 @@
 						<div id="comments">
 							<div id="commentx" v-for="getComment in commetMessage" v-if="commetMessage!=null">
 								<!-- 评论信息 -->
-								<span><img :src="getComment.userImage" style="width: 40px;height: 35px;"></span>
+								<span><img :src="getComment.userImage" style="width: 40px;height: 40px;"></span>
 								<span style="font-size: 13px;color: #dcdf32" v-text="getComment.userName+' 发布于 '"></span>
 								<span style="font-size: 13px;color: #bebebe" v-text="getComment.commentTime"></span><br /><br />
 								<label style="font-size:15px;color: #efefef" v-text="getComment.commentContent">评论内容</lable>
 							</div>
-							<!-- 评论发表输入框 -->
-							<!-- <div id="contentInput">
-								<input type="text" v-model="inputValue" @keyup.enter="addComment" maxlength="200" 
-								placeholder="请发表你对本视频的看法/按下'Enter'即可发布" />
-							</div> -->
 							<div id="comment-ifo">
 								<span><a href="JavaScript:void(0)" @click="moreComment($event)">上一页</a></span>
 								<span><a @click="loadMore()" v-text="loadTip" style="color: yellow;" href="JavaScript:void(0)">
@@ -107,7 +102,7 @@
 				//导航栏选中是使用的样式
 				navigationBarStyle: 'border-bottom: #3448BC 3px solid;color:white',
 				//导航栏
-				navigationBar: ['首页', '选影', '音乐', '热门电影', '热门电视', '关于'],
+				navigationBar: ['首页', '选影', '音乐', '关于'],
 				//视频图片url
 				image: '',
 				//视频信息数组

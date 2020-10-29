@@ -49,25 +49,26 @@ li{
 	flex: 5;
 	margin-top: 10px;
 }
-#show-list #show{
+#show-list #show {
 	float: left;
 	flex: 1;
 	margin-left: 35px;
 	margin-top: 10px
 }
-#show img{
+#show img {
 	width: 200px;
 	height: 270px;
 }
 
-.more a{
+
+.more a {
 	color: white;
 	height: 200px;
 	width: 100%;
 	text-align: center;
-	margin-top:70% ;
+	margin-top:90% ;
 	padding: 50px;
-	margin-left: 30%;
-	font-size: 15px;
+	margin-left: 40%;
+	font-size: 16px;
 	margin-bottom:30px ;
 }
