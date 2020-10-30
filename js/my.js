@@ -1,6 +1,8 @@
 new Vue({
 	el: "#biBox",
 	data: {
+		//搜索框样式
+		searchStyle:'margin-left:66%;width: 200px;outline: none;border-radius: 25px;height: 23px;background-color: #2C2C2C;color: #0080CC;border: 1px solid #6E6E6E;',
 		//标题栏样式
 		navigationBarStyle: 'border-bottom: #ffff00 3px solid;color:white',
 		isGetName:'登录',
@@ -111,7 +113,7 @@ new Vue({
 				}
 			}).then(response => {
 				this.loadingTip = '点击加载更多';
-				if (response.data.subjects.length == 0) {
+				if (response.data.subjects == '') {
 					alert('额!没有更多数据了');
 					this.page_start -= 30;
 				} else {
@@ -144,6 +146,7 @@ new Vue({
 		changeStyle(index) {
 			this.setIndex = index;
 			if(index==1){window.open('choose.html');}
+			if(index==2){window.open('music.html');}
 			if(index==3){window.open('aboutMe.html');}
 		},
 		//实现选中【热门电影】导航栏时显示底部边框颜色：border-bottom
@@ -195,8 +198,12 @@ new Vue({
 			$.cookie('iamge_url',image,{path:'/'});//保存图片链接到cookie中：path:'/'：保存路径在网站跟目录
 			var id=id.replace(/[^0-9]/ig,"");//只保留数字,因为顶部轮番图视频id在url中,所以使用正则处理
 			$.cookie('id',id,{path:'/'});//保存视频id
-			if(e.currentTarget.innerText=='豆瓣评论'){window.open('comment.html');}
-			else{window.open('details.html');}
+			if(e.currentTarget.innerText=='本站评论'){
+					window.open('details.html');
+			}
+			else{
+					window.open('comment.html');
+			}
 		},
 		//豆瓣视频评分
 		comments(id,image){

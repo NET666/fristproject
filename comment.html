@@ -119,9 +119,10 @@
 			methods: {
 				changeStyle(index) {
 					this.setIndex = index;
-					if(index==0){
-						open('index.html');
-					}
+					if(index==0){open('index.html');}
+					if(index==1){open('choose.html');}
+					if(index==2){open('music.html');}
+					if(index==3){open('aboutMe.html');}
 				},
 				onload: function() {
 					$.cookie.raw = true; //默认情况下，读取和写入 cookie 的时候自动进行编码和解码（使用 encodeURIComponent 编码，decodeURIComponent 解码）。要关闭这个功能设置 raw:true 即可
@@ -147,6 +148,10 @@
 							this.commetMessage = response.data;
 							this.loadTip = '加载完成';
 							console.log(response.data);
+							//锚点定位：跳转到评论头部
+							if(this.start==0){window.location.href = '#banner';}
+							else{window.location.href = '#list-biBox';}
+							
 						}
 						
 					})

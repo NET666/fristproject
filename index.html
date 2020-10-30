@@ -34,15 +34,17 @@
 				<div id="titleRight">
 					<a href="login.html" onclick="return false" target="_blank" v-text="isGetName" @click="isLogged($event)" title="登录">登录</a>
 				</div>
-
 			</div>
 			<div id="mainContent">
+				<div id="search">
+					<input type="text" placeholder="输入关键字/按下Enter搜索" :style="searchStyle"/>
+				</div>
 				<strong id="newRecommend">正在热映</strong>
 				<!-- rotationArr[rotationIndex]!=null:这句是判断数组是否为空,如果为空,则不进行数据渲染,
 				因为数据是从后台获取的，请求数据需要时间,没有获得数据之前就进行渲染会报这样的错误
 				(Error in render: "TypeError: Cannot read property 'XXXXX' of undefined")
 				 -->
-				 <!-- 头部显示区域轮番 -->
+				<!-- 头部显示区域轮番 -->
 				<div id="rotation" v-if="rotationArr[rotationIndex]!=null">
 					<!-- 轮播图片 -->
 					<div id="image">
@@ -58,7 +60,7 @@
 							<h3 v-text="rotationArr[rotationIndex].title">哪吒</h3>
 							<span v-text="rotationArr[rotationIndex].rate==null?'暂无评分':rotationArr[rotationIndex].rate+'分'">3.5分</span>
 						</div>
-						<a href="Javascript:void(0)" target="_blank" @click="details(rotationArr[rotationIndex].url,rotationArr[rotationIndex].image)">了解详情---></a>
+						<a href="Javascript:void(0)" target="_blank" @click="details(rotationArr[rotationIndex].url,rotationArr[rotationIndex].image,$event)">了解详情---&gt;</a>
 					</div>
 				</div>
 				<!-- 列表区域 -->
@@ -81,9 +83,9 @@
 					<div id="listBox" v-for="(hot,index) in hotMovie">
 						<div id="listImage">
 							<img :src="hot.cover" @click="play(hot.title)"><br>
-							<strong>{{hot.rate}}分 </strong><label>{{hot.title}}<br/>
-							<a  @click="details(hot.id,hot.cover,$event)" style="color: #0080CC;">本站评论</a>
-							<a  @click="comments(hot.id,hot.cover,$event)" style="color: hotpink;margin-left: 15px;">豆瓣评论</a></label>
+							<strong>{{hot.rate}}分 </strong><label>{{hot.title}}<br />
+								<a @click="details(hot.id,hot.cover,$event)" style="color: #0080CC;">本站评论</a>
+								<a @click="comments(hot.id,hot.cover,$event)" style="color: hotpink;margin-left: 15px;">豆瓣评论</a></label>
 						</div>
 					</div>
 				</div>
@@ -97,7 +99,7 @@
 			<!-- 页尾网站信息布局 -->
 			<div id="footer">
 				<div id="footerLeft">
-					<span><img style="width: 40px;height: 40px;border-radius: 20px;" src="img/qqhead.jpg"/></span>
+					<span><img style="width: 40px;height: 40px;border-radius: 20px;" src="img/qqhead.jpg" /></span>
 					<a href='tencent://message/?uin=1724940500&Site=&Menu=yes' title="点击与开发者聊一聊">开发者QQ:1724940500</a>
 				</div>
 				<div id="footerMind">

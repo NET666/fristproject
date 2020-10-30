@@ -73,7 +73,21 @@
 						window.open('login.html');
 					}
 				},
+				//验证用户是否已经登录
+				userVrification: function(){
+					axios.get('php/userVrification.php').then(response =>{
+						if(response.data==false){
+							this.isGetName = '登录';
+						}else{
+							this.isGetName = response.data;
+							console.log(response.data);
+						}
+					})
+				},
 			
+			},
+			mounted() {
+				this.userVrification();
 			}
 		})
 	</script>

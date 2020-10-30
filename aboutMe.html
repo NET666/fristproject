@@ -21,7 +21,7 @@
 			}
 
 			#about-box {
-				width: 55%;
+				width: 54%;
 				margin: 0 auto;
 				margin-top: 1%;
 			}
@@ -105,7 +105,7 @@
 				//发表评论
 				sedLog: function() {
 					if (this.dataTime != '' && this.content != '') {
-						axios.get('php/sendLog.php', {
+						axios.get('php/aboutMe.php', {
 							params: {
 								dataTime: this.dataTime,
 								content: this.content
@@ -125,7 +125,7 @@
 				},
 				//提取评论
 				show() {
-					axios.get('php/sendLog.php', {
+					axios.get('php/aboutMe.php', {
 						params: {
 							dataTime: '0',
 							content: '0'
