@@ -37,7 +37,7 @@
 			</div>
 			<div id="mainContent">
 				<div id="search">
-					<input type="text" placeholder="输入关键字/按下Enter搜索" :style="searchStyle"/>
+					<input type="text" v-model="valueSearch" placeholder="输入关键字/按下Enter搜索" @keyup.enter="doSearch" :style="searchStyle"/>
 				</div>
 				<strong id="newRecommend">正在热映</strong>
 				<!-- rotationArr[rotationIndex]!=null:这句是判断数组是否为空,如果为空,则不进行数据渲染,

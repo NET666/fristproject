@@ -8,12 +8,12 @@ new Vue({
 		isGetName:'登录',
 		setIndex: 0,
 		hotSetIndedx: 0,
+		loadingTip:'点击加载更多',
 		navigationBar: ['首页', '选影', '音乐', '关于'],
 		hotNavigationBar: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典','动作'],
 		hotTvNavigationBar: ['热门', '国产剧', '综艺', '美剧', '日剧', '韩剧', '日本动画', '纪录片'],
 		switchTemp: ['热门', '最新', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '喜剧', '爱情', '科幻', '悬疑', '恐怖', '治愈', '经典','动作'],
 		videoNavigationTitle: '热门电影',
-		loadingTip: '点击加载更多',
 		//视频数组
 		hotMovie: [],
 		videoType: 'movie',
@@ -23,7 +23,8 @@ new Vue({
 		//控制轮番图索引
 		rotationIndex: 0,
 		rotationArr: [],
-
+		//接收搜索字段
+		valueSearch:''
 	},
 
 	methods: {
@@ -213,7 +214,15 @@ new Vue({
 			var id=id.replace(/[^0-9]/ig,"");
 			$.cookie('id',id,{path:'/'});
 			window.open('comment.html');
-		}
+		},
+		//搜索功能
+		doSearch:function(){
+			axios.get('php/search.php?search='+this.valueSearch).then(response=>{
+				this.hotMovie = response.data;
+				this.valueSearch = '';
+				window.location.href = '#more';
+			})
+		},
 		
 	},
 	
