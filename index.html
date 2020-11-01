@@ -32,11 +32,12 @@
 				</div>
 				<!-- 导航栏右边标题,onclick="return false":表示点击不跳转 -->
 				<div id="titleRight">
-					<a href="login.html" onclick="return false" target="_blank" v-text="isGetName" @click="isLogged($event)" title="登录">登录</a>
+					<a href="login.html" target="_blank" v-text="isGetName"  @click.prevent="isLogged($event)" title="登录">登录</a>
 				</div>
 			</div>
 			<div id="mainContent">
 				<div id="search">
+					<!-- <img src="img/search.png" style="width: 30px;height: 30px;margin-left: 82%;float: right;position: absolute;"/> -->
 					<input type="text" v-model="valueSearch" placeholder="输入关键字/按下Enter搜索" @keyup.enter="doSearch" :style="searchStyle"/>
 				</div>
 				<strong id="newRecommend">正在热映</strong>

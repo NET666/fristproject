@@ -71,7 +71,7 @@
 					<div id="show" v-for="video in videoArray">
 						<img :src="video.cover" @click="play(video.title)"/><br>
 						<strong style="color: yellow;" v-text="video.rate+'分 '">7.0</strong>
-						<span v-text="video.title">流浪地球</span><br/>
+						<marquee width="100px" behavior="scroll" scrollamount="6"><span v-text="video.title">流浪地球</span></marquee> 
 						<a href="Javascript:void(0)" style="font-size: 12px;color: white;" @click="details(video.id,video.cover)">查看详情</a>
 					</div>
 					<!-- 点击加载更多 -->

@@ -48,5 +48,32 @@ class DB{
 				return false;
 			}
 		}
+		//chooseMovie.php视频信息插入事件
+		function movieInsert($getData,$type,$tag,$con)
+		{
+			$link = $con->mySqlServer();
+			$arr = json_decode($getData,true);
+			$arr = $arr['data'];
+			//把数据保存到数据库
+			for ($i=0;$i<sizeof($arr);$i++)
+			{
+				$id = $arr[$i]['id'];
+				$sql = "select id from sitedata where id='$id'";//先查询是否存在,不存在则插入
+				$res = mysqli_query($link,$sql);
+				$result = mysqli_fetch_row($res);
+				if(!$result){
+					$rate = $arr[$i]['rate'];
+					$title = $arr[$i]['title'];
+					$cover = $arr[$i]['cover'];
+					$id = $arr[$i]['id'];
+					$url = $arr[$i]['url'];
+					$sql = "insert into sitedata(rate,title,url,id,cover,types,tag) values ('$rate','$title','$url','$id','$cover','$type','$tag')";
+					mysqli_query($link,$sql);
+				}
+				
+			}
+			
+			mysqli_close($link);//关闭数据库连接
+		}
 
 }
