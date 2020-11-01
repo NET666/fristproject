@@ -36,14 +36,14 @@ if($tags!='全部类型'&&$genres=='全部类型'&&$countries=='全部类型'&&$
 	$getData = file_get_contents($url);
 	echo $getData;
 	$type = $tags;
-	$tag = $genres;
+	$tag = '全部';
 	$con->movieInsert($getData,$type,$tag,$con);
 }//仅第二栏选中
 if($tags=='全部类型'&&$genres!='全部类型'&&$countries=='全部类型'&&$year_range=='全部类型'){
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&genres='.$genres;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
+	$type = '全部';
 	$tag = $genres;
 	$con->movieInsert($getData,$type,$tag,$con);
 }//仅第三栏选中
@@ -51,16 +51,16 @@ if($tags=='全部类型'&&$genres=='全部类型'&&$countries!='全部类型'&&$
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&countries='.$countries;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
-	$tag = $genres;
+	$type = $countries;
+	$tag = '全部';
 	$con->movieInsert($getData,$type,$tag,$con);
 }//仅第四栏选中
 if($tags=='全部类型'&&$genres=='全部类型'&&$countries=='全部类型'&&$year_range!='全部类型'){
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&year_range='.$year_range;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
-	$tag = $genres;
+	$type = $year_range;
+	$tag = '全部';
 	$con->movieInsert($getData,$type,$tag,$con);
 }
 //仅第一栏和第二栏选中
@@ -77,7 +77,7 @@ if($tags!='全部类型'&&$genres=='全部类型'&&$countries!='全部类型'&&$
 	$getData = file_get_contents($url);
 	echo $getData;
 	$type = $tags;
-	$tag = $genres;
+	$tag = $countries;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
 //仅第一栏和第四栏选中
@@ -86,7 +86,7 @@ if($tags!='全部类型'&&$genres=='全部类型'&&$countries=='全部类型'&&$
 	$getData = file_get_contents($url);
 	echo $getData;
 	$type = $tags;
-	$tag = $genres;
+	$tag = $year_range;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
 //仅第一,二,三栏选中
@@ -113,7 +113,7 @@ if($tags!='全部类型'&&$genres=='全部类型'&&$countries!='全部类型'&&$
 	$getData = file_get_contents($url);
 	echo $getData;
 	$type = $tags;
-	$tag = $genres;
+	$tag = $countries;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
 //二、三栏选中
@@ -121,8 +121,8 @@ if($tags=='全部类型'&&$genres!='全部类型'&&$countries!='全部类型'&&$
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&genres='.$genres.'$countries='.$countries;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
-	$tag = $genres;
+	$type = '全部';
+	$tag = $countries;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
 //二、四栏选中
@@ -130,7 +130,7 @@ if($tags=='全部类型'&&$genres!='全部类型'&&$countries=='全部类型'&&$
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&genres='.$genres.'$year_range='.$year_range;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
+	$type = $year_range;
 	$tag = $genres;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
@@ -140,8 +140,8 @@ if($tags=='全部类型'&&$genres=='全部类型'&&$countries!='全部类型'&&$
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&countries='.$countries.'$year_range='.$year_range;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
-	$tag = $genres;
+	$type = $countries;
+	$tag = $year_range;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
 
@@ -150,7 +150,7 @@ if($tags=='全部类型'&&$genres!='全部类型'&&$countries!='全部类型'&&$
 	$url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags='.'&start='.$start.'&genres='.$genres.'&countries='.$countries.'$year_range='.$year_range;
 	$getData = file_get_contents($url);
 	echo $getData;
-	$type = $tags;
+	$type = $year_range;
 	$tag = $genres;
 	$con->movieInsert($getData,$type,$tag,$con);
 }
