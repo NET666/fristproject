@@ -67,9 +67,10 @@ class DB{
 					$cover = $arr[$i]['cover'];
 					$id = $arr[$i]['id'];
 					$url = $arr[$i]['url'];
-					$sql = "insert into sitedata(rate,title,url,id,cover,types,tag) values ('$rate','$title','$url','$id','$cover','$type','$tag')";
+					$sql = "insert  into sitedata(rate,title,url,id,cover,types,tag) values ('$rate','$title','$url','$id','$cover','$type','$tag')";
 					mysqli_query($link,$sql);
 				}
+				
 				
 			}
 			

@@ -98,11 +98,12 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 #banner #titleRight
 {
 	position: relative;
-	width: 10%;
+	min-width: 13%;
+	max-width: 20%;
 	height: 50px;
 	line-height: 50px;
-	text-align: right;
-	margin-right: 50px;
+	text-align: center; 
+	margin-left: 10px;
 }
 /* 登录a */
 #banner #titleRight a
@@ -112,6 +113,18 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 	font-size: small;
 	font-family: "黑体";
 		
+}
+/* 顶部下拉列表 */
+#titleRight select
+{
+	color: white;
+	/*清除聚焦时候的边框颜色*/
+	outline: none;
+	/*清除select的边框样式*/
+	border: none;
+	border-radius: 10px;
+	color: white;
+	background-color:  #313131;
 }
 
 /*  */

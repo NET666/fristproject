@@ -32,7 +32,13 @@
 				</div>
 				<!-- 导航栏右边标题,onclick="return false":表示点击不跳转 -->
 				<div id="titleRight">
-					<a href="login.html" target="_blank" v-text="isGetName"  @click.prevent="isLogged($event)" title="登录">登录</a>
+					<select @click="doSelect($event)" v-if='isGetName!="登录"'>
+						<option value ="设置" style="display: none;"></option>
+						<option value ="个人中心">个人中心</option>
+						<option value ="后台管理">后台管理</option>
+						<option value ="退出登录" >退出登录</option>
+					</select>
+					<a href="login.html" target="_blank" v-text="isGetName"  @click.prevent="isLogged($event)">登录</a>	
 				</div>
 			</div>
 			<div id="mainContent">

@@ -119,10 +119,10 @@
 			methods: {
 				changeStyle(index) {
 					this.setIndex = index;
-					if(index==0){open('index.html');}
-					if(index==1){open('choose.html');}
-					if(index==2){open('music.html');}
-					if(index==3){open('aboutMe.html');}
+					if(index==0){window.location.href = 'index.html';}
+					if(index==1){window.location.href = 'choose.html';}
+					if(index==2){window.location.href = 'music.html';}
+					if(index==3){window.location.href = 'aboutMe.html';}
 				},
 				onload: function() {
 					$.cookie.raw = true; //默认情况下，读取和写入 cookie 的时候自动进行编码和解码（使用 encodeURIComponent 编码，decodeURIComponent 解码）。要关闭这个功能设置 raw:true 即可
@@ -208,10 +208,8 @@
 				},
 				//用于判断有上方登录按钮时是否跳转登录
 				isLogged(e){
-					if(e.currentTarget.innerText !='登录'){
-						alert('已经登录了');
-					}else{
-						window.open('login.html');
+					if(e.currentTarget.innerText =='登录'){
+						window.location.href = 'login.html';
 					}
 				},
 				play(videoName) {

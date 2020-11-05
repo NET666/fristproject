@@ -18,7 +18,7 @@ $link = $conn->mysqlServer();
 if($link){
 	 
 	  //验证用户名是否已经被注册
-	  $sql = "select * from login where username='$name'";
+	  $sql = "select name from login where username='$name'";
 	  $res = $conn->checkUser($link, $sql);
 	  if($res){
 		  echo '0'; //用户名已经存在,返回false

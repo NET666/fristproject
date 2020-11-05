@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="referrer" content="no-referrer" />
 		<link rel="stylesheet" type="text/css" href="css/details.css" />
+		<link rel="stylesheet" type="text/css" href="css/music.css" />
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 开发环境版本，包含了有帮助的命令行警告 -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -32,13 +33,52 @@
 				</div>
 				<!-- 导航栏右边标题 -->
 				<div id="titleRight">
-					<a href="login.html"  @click.prevent="isLogged($event)" target="_blank" v-text="isGetName" title="登录">登录</a>
+					<select @click="doSelect($event)" v-if='isGetName!="登录"'>
+						<option value="设置" style="display: none;"></option>
+						<option value="个人中心">个人中心</option>
+						<option value="后台管理">后台管理</option>
+						<option value="退出登录">退出登录</option>
+					</select>
+					<a href="login.html" @click.prevent="isLogged($event)" target="_blank" v-text="isGetName" title="登录">登录</a>
 				</div>
 
 			</div>
-			<div id="list-biBox">
+			<div id="list-biBox"  @click.self="hide()">
 				<div id="mainContent">
-					
+					<div id="music-main">
+						<div id="music-head">
+							<img src="img/search.png" @click.enter="musicSearch()">
+							<input type="text" placeholder="输入关键字|歌手|歌曲|按下Enter搜索" v-model="key_name" @keyup.enter="musicSearch()" />
+						</div>
+						<div id="music-mid">
+							<table border="0" cellspacing="0" cellpadding="10px" width="100%">
+								<tr>
+									<th>音乐标题</th>
+									<th>歌手</th>
+									<th>专辑</th>
+									<th>时长</th>
+								</tr>
+								<tr v-for="(itme,index) in musicList" :style="index%2==0?tableStyle:tableStyles" @dbclick="musicPlay(itme.id)">
+									<td>{{index+1}}.{{itme.name}}<img class="playImg" src="img/play.png" @click="musicPlay(itme.id)" /></td>
+									<td>{{itme.artists[0].name}}</td>
+									<td>{{itme.album.name}}<img :style="itme.mvid==0?MvIsvisible:playImg" src="img/MV.png" @click="playMv(itme.mvid)" /></td>
+									<td>暂未找到获取方法</td>
+								</tr>
+
+								<tr>
+									<td colspan="2" style="text-align: center;" @click="backPage()"><label>上一页</label></td>
+									<td colspan="2" style="text-align: center;" @click="nextPage()"><label>下一页</label></td>
+								</tr>
+							</table>
+						</div>
+						<div id="music-footer">
+							<audio :src="musicUrl" id="music" controls="controls" autoplay="autoplay"></audio>
+						</div>
+
+						<video :src="musicMv" id="video"  autoplay="autoplay" controls="controls" :style="videoIsPlay==true?videoMvShow:videoMvOff">
+						</video>
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -46,48 +86,137 @@
 	<script type="text/javascript">
 		var app = new Vue({
 			el: '#biBox',
-			data:{
+			data: {
 				navigationBarStyle: 'border-bottom: #ffff00 3px solid;color:white',
-				isGetName:'登录',
+				playImg: 'position: relative;width: 30px;height: 30px;display: block;',
+				tableStyle: 'background-color: #141414;min-height: 100px;',
+				tableStyles: 'min-height: 100px;',
+				videoIsPlay: false,
+				videoMvShow: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: block;outline:none',
+				videoMvOff: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: none;',
+				isGetName: '登录',
 				setIndex: 2,
 				hotSetIndedx: 0,
 				navigationBar: ['首页', '选影', '音乐', '关于'],
+				key_name: '梁静茹',
+				offset: 0,
+				musicList: [],
+				musicUrl: '',
+				musicMv: '',
+				MvIsvisible: 'display:none',
+
 			},
 			methods: {
 				changeStyle(index) {
-					this.setIndex = index;
+					//this.setIndex = index;
 					if (index == 0) {
-						window.open('index.html');
-					}if(index == 1){
-						window.open('choose.html');
+						window.location.href = 'index.html';
 					}
-					if(index == 3){
-						window.open('aboutMe.html');
+					if (index == 1) {
+						window.location.href = 'choose.html';
 					}
-				}, 
+					if (index == 3) {
+						window.location.href = 'aboutMe.html';
+					}
+				},
 				//用于判断有上方登录按钮时是否跳转登录
 				isLogged(e) {
-					if (e.currentTarget.innerText != '登录') {
-						alert('已经登录了');
-					} else {
-						window.open('login.html');
+					if (e.currentTarget.innerText == '登录') {
+						window.location.href = 'login.html';
 					}
 				},
 				//验证用户是否已经登录
-				userVrification: function(){
-					axios.get('php/userVrification.php').then(response =>{
-						if(response.data==false){
+				userVrification: function() {
+					axios.get('php/userVrification.php').then(response => {
+						if (response.data == false) {
 							this.isGetName = '登录';
-						}else{
+						} else {
 							this.isGetName = response.data;
 							console.log(response.data);
 						}
 					})
 				},
-			
+				//注销登录
+				doSelect(e) {
+					if (e.target.value == '退出登录') {
+						axios.get('php/logOut.php').then(response => {
+							this.userVrification();
+						})
+					}
+				},
+				//歌曲搜索
+				musicSearch() {
+					//获取当前时间戳
+					const getNowTime = Date.now();
+					axios.get('https://autumnfish.cn/search', {
+						params: {
+							keywords: this.key_name,
+							limit: 15,
+							offset: this.offset,
+							type: 1,
+							t: getNowTime
+						}
+					}).then(response => {
+						console.log(response.data.result.songs);
+						if (response.data.result.songs == undefined) {
+							this.offset -= 15;
+							alert('没有更多啦');
+						} else {
+							this.musicList = response.data.result.songs;
+						}
+					})
+				},
+				//获取音乐播放连接
+				musicPlay(id) {
+					const getNowTime = Date.now();
+					axios.get('https://autumnfish.cn/song/url', {
+						params: {
+							id: id,
+							t: getNowTime
+						}
+					}).then(response => {
+						this.musicUrl = response.data.data[0].url;
+					})
+				},
+				//播放MV
+				playMv(mvid) {
+					const getNowTime = Date.now();
+					axios.get('https://autumnfish.cn/mv/url?id=' + mvid).then(response => {
+						console.log(response.data.data.url);
+						this.musicMv = response.data.data.url;
+						this.videoIsPlay = true;
+						window.location.href = "#music-head";
+						//播放Mv时暂定歌曲播放
+						let myAudio = document.getElementById('music');
+						myAudio.pause();
+					})
+				},
+				hide() {
+					//隐藏video
+					this.videoIsPlay = false;
+					//暂定MV播放
+					let myVideo = document.getElementById('video');
+					myVideo.pause();
+					//恢复播放歌曲
+					let myAudio = document.getElementById('music');
+					myAudio.play();
+				},
+				//上一页，下一页
+				nextPage() {
+					this.offset += 15;
+					this.musicSearch();
+				},
+				backPage() {
+					if (this.offset != 0) {
+						this.offset -= 15;
+						this.musicSearch();
+					}
+				},
+
 			},
 			mounted() {
 				this.userVrification();
+				this.musicSearch();
 			}
 		})
 	</script>

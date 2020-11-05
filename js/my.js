@@ -2,7 +2,7 @@ new Vue({
 	el: "#biBox",
 	data: {
 		//搜索框样式
-		searchStyle:'margin-left:66%;width: 200px;outline: none;border-radius: 25px;height: 23px;background-color: #f7f7f7;color: #0080CC;border: 1px solid #6E6E6E;',
+		searchStyle:'margin-left:66%;width: 200px;outline: none;border-radius: 25px;height: 23px;background-color: #f7f7f7;color: #0080CC;border: 1px solid #6E6E6E;padding-left:10px;',
 		//标题栏样式
 		navigationBarStyle: 'border-bottom: #ffff00 3px solid;color:white',
 		isGetName:'登录',
@@ -137,18 +137,16 @@ new Vue({
 		},
 		//用于判断有上方登录按钮时是否跳转登录
 		isLogged(e){
-			if(e.currentTarget.innerText !='登录'){
-				alert('已经登录了');
-			}else{
-				window.open('login.html');
+			if(e.currentTarget.innerText =='登录'){
+				window.location.href = 'login.html';
 			}
 		},
 		//实现选中【顶部】导航栏时显示底部边框颜色：border-bottom
 		changeStyle(index) {
-			this.setIndex = index;
-			if(index==1){window.open('choose.html');}
-			if(index==2){window.open('music.html');}
-			if(index==3){window.open('aboutMe.html');}
+			//this.setIndex = index;
+			if(index==1){window.location.href = 'choose.html';}
+			if(index==2){window.location.href = 'music.html';}
+			if(index==3){window.location.href = 'aboutMe.html';}
 		},
 		//实现选中【热门电影】导航栏时显示底部边框颜色：border-bottom
 		hotChangeStyle(index, e) {
@@ -200,10 +198,10 @@ new Vue({
 			var id=id.replace(/[^0-9]/ig,"");//只保留数字,因为顶部轮番图视频id在url中,所以使用正则处理
 			$.cookie('id',id,{path:'/'});//保存视频id
 			if(e.currentTarget.innerText=='本站评论'){
-					window.open('details.html');
+					window.location.href = 'details.html';
 			}
 			else{
-					window.open('comment.html');
+					window.location.href = 'comment.html';
 			}
 		},
 		//豆瓣视频评分
@@ -213,15 +211,23 @@ new Vue({
 			$.cookie('iamge_url',image,{path:'/'});
 			var id=id.replace(/[^0-9]/ig,"");
 			$.cookie('id',id,{path:'/'});
-			window.open('comment.html');
+			window.location.href='comment.html';
 		},
-		//搜索功能
-		doSearch:function(){
+		//视频搜索功能
+		doSearch(){
 			axios.get('php/search.php?search='+this.valueSearch).then(response=>{
 				this.hotMovie = response.data;
 				this.valueSearch = '';
 				window.location.href = '#more';
 			})
+		},
+		//注销登录
+		doSelect(e){
+			if(e.target.value == '退出登录'){
+				axios.get('php/logOut.php').then(response=>{
+					this.userVrification();
+				})
+			}
 		},
 		
 	},

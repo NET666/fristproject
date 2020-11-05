@@ -176,10 +176,8 @@
 				},
 				//用于判断有上方登录按钮时是否跳转登录
 				isLogged(e){
-					if(e.currentTarget.innerText !='登录'){
-						alert('已经登录了');
-					}else{
-						window.open('login.html');
+					if(e.currentTarget.innerText =='登录'){
+						window.location.href = 'login.html';
 					}
 				},
 				play(videoName) {
