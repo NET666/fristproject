@@ -48,7 +48,7 @@
 					<div id="music-main">
 						<div id="music-head">
 							<img src="img/search.png" @click.enter="musicSearch()">
-							<input type="text" placeholder="输入关键字|歌手|歌曲|按下Enter搜索" v-model="key_name" @keyup.enter="musicSearch()" />
+							<input type="text" ref="focus" placeholder="输入关键字|歌手|歌曲|按下Enter搜索" v-model="key_name" @keyup.enter="musicSearch()" />
 						</div>
 						<div id="music-mid">
 							<table border="0" cellspacing="0" cellpadding="10px" width="100%">
@@ -58,11 +58,11 @@
 									<th>专辑</th>
 									<th>时长</th>
 								</tr>
-								<tr v-for="(itme,index) in musicList" :style="index%2==0?tableStyle:tableStyles" @dbclick="musicPlay(itme.id)">
-									<td>{{index+1}}.{{itme.name}}<img class="playImg" src="img/play.png" @click="musicPlay(itme.id)" /></td>
-									<td>{{itme.artists[0].name}}</td>
-									<td>{{itme.album.name}}<img :style="itme.mvid==0?MvIsvisible:playImg" src="img/MV.png" @click="playMv(itme.mvid)" /></td>
-									<td>暂未找到获取方法</td>
+								<tr v-for="(itme,index) in musicList" :style="(index+1)%2==0?tableStyle:tableStyles">
+									<td v-cloak>{{index+1}}.{{itme.name}}<img class="playImg" src="img/play.png" @click="musicPlay(itme.id)" /></td>
+									<td v-cloak>{{itme.artists[0].name}}</td>
+									<td v-cloak>{{itme.album.name}}<img :style="itme.mvid==0?MvIsvisible:playImg" src="img/MV.png" @click="playMv(itme.mvid)" /></td>
+									<td v-cloak>{{itme.duration | changeMinuteSecond}}</td>
 								</tr>
 
 								<tr>
@@ -72,7 +72,7 @@
 							</table>
 						</div>
 						<div id="music-footer">
-							<audio :src="musicUrl" id="music" controls="controls" autoplay="autoplay"></audio>
+							<audio :src="musicUrl" id="music" controls="controls" autoplay="autoplay" loop="loop"></audio>
 						</div>
 
 						<video :src="musicMv" id="video"  autoplay="autoplay" controls="controls" :style="videoIsPlay==true?videoMvShow:videoMvOff">
@@ -88,23 +88,30 @@
 			el: '#biBox',
 			data: {
 				navigationBarStyle: 'border-bottom: #ffff00 3px solid;color:white',
-				playImg: 'position: relative;width: 30px;height: 30px;display: block;',
-				tableStyle: 'background-color: #141414;min-height: 100px;',
-				tableStyles: 'min-height: 100px;',
-				videoIsPlay: false,
-				videoMvShow: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: block;outline:none',
-				videoMvOff: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: none;',
 				isGetName: '登录',
 				setIndex: 2,
 				hotSetIndedx: 0,
 				navigationBar: ['首页', '选影', '音乐', '关于'],
+				
+				//有mv歌曲显示图片
+				playImg: 'position: relative;width: 25px;height: 25px;display: block;',
+				MvIsvisible: 'display:none',
+				//控制tr背景背景样式
+				tableStyle: 'background-color: #141414;height: 70px;',
+				tableStyles: 'height: 70px;',
+				//MV视频
+				videoIsPlay: false,
+				videoMvShow: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: block;outline:none',
+				videoMvOff: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: none;',
+				
 				key_name: '梁静茹',
 				offset: 0,
+				//歌曲数组
 				musicList: [],
+				//音乐链接
 				musicUrl: '',
+				//音乐MV
 				musicMv: '',
-				MvIsvisible: 'display:none',
-
 			},
 			methods: {
 				changeStyle(index) {
@@ -163,6 +170,7 @@
 							alert('没有更多啦');
 						} else {
 							this.musicList = response.data.result.songs;
+							this.$refs.focus.focus();//让搜索框获得焦点
 						}
 					})
 				},
@@ -213,6 +221,15 @@
 					}
 				},
 
+			},
+			//过滤器
+			filters: {
+				changeMinuteSecond(duration){
+					//把毫秒转换为分和秒
+					var min = Math.floor((duration/1000/60) << 0);
+					var sec = Math.floor((duration/1000) % 60).toFixed(0);
+					return min + ':' + (sec < 10 ? '0' : '') + sec;
+				}
 			},
 			mounted() {
 				this.userVrification();

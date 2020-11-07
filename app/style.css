@@ -1,0 +1,16 @@
+   	.background{margin:0 auto;max-width:880px;box-shadow:0px 1px 2px rgba(0,0,0,0.2);min-width:320px;padding-bottom:0.1px}
+        .aa {cursor: pointer;display: flex;display: -webkit-flex;align-items: center;}
+        html{background:#eee}
+        *{letter-spacing:1px;font-family:'Helvetica','Droidsansfallback','Heiti SC';box-sizing:border-box;outline:none;margin:0;padding:0;border:0;text-decoration:none;-webkit-tap-highlight-color:rgba(0,0,0,0);color:#333;}
+        .top{height:230px;text-align: center;}
+        .icon{width:60px;height:60px;margin-top: 25px;}
+        .child {display: inline-block;}
+        .url {text-decoration: none}
+        .bold {font-weight: 500;}
+        .show{background: #fff;box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);border-radius: 2px;word-wrap: break-word;}
+        .down {margin-top: 15px;color: #ffffff;;background:#4CAF50 ;width: 110px;height: 32px;border-top-left-radius: 0.5em;border-top-right-radius: 0.5em;border-bottom-left-radius: 0.5em;border-bottom-right-radius: 0.5em;border-top-width: 0px;border-right-width: 0px;border-bottom-width: 0px;border-left-width: 0px;cursor: pointer;}
+        .title{color:#4CAF50;font-size: 16px;margin-left: 15px;margin-top: 25px;}
+        .png{width:49%;height:100%;margin-left: 3px}
+        .middle{margin-top: 20px;padding-top: 5px;padding-bottom: 20px;}
+        .content{font-size: 14px;margin-left: 15px;margin-right: 15px;margin-top: 10px;font-size: 14px;}
+         .td{word-wrap:break-word;word-break:break-all;}

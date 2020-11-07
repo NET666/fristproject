@@ -8,7 +8,6 @@
 #music-head {
 	width: 100%;	
 	text-align: right;
-
 }
 /* transform: translateX(300px) scale(0.8); */
 /* animation:name 1s ; */
@@ -50,23 +49,22 @@ tr{
 }
 
 #music-footer{
-	position: relative;
+ 	position:fiexd;
+	bottom:0;
 	width: 100%;
 	height: 100px;
-	margin-top: 20px;
+	margin-top: 20px; 
 }
 audio {
 	width: 100%;
 	height: 28px;
 	outline: none;
+	background-color: #262626;
+	
 }
-/* video{
-	position: absolute;
-	width: 400px;
-	height: 300px;
-	margin-left: 25%;
-	margin-top: 20%;
-} */
+[v-cloak]{
+	display: none;
+}
 .playImg{
 	position: absolute;
 	width: 30px;

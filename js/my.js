@@ -231,7 +231,17 @@ new Vue({
 		},
 		
 	},
-	
+	//watch监听方法,当this.valueSearch发生变化同时->axios.get异步操作请求
+	/* watch:{
+		valueSearch(newVal,oldVal){
+			//视频搜索功能
+			axios.get('php/search.php?search='+this.valueSearch).then(response=>{
+				this.hotMovie = response.data;
+				//this.valueSearch = '';
+				//window.location.href = '#more';
+			})
+		}
+	}, */
 	//mounted:监听事件在这个方法
 	mounted() {
 		//4秒执行一次autoRotation函数
