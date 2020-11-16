@@ -183,7 +183,7 @@
 							start:this.start,
 						}
 					}).then(response=>{
-						if(response.data[0].userName==''){
+						if(response.data==''){
 							this.loadTip = '没有更多数据了~~~';
 							this.start -= 20;
 						}else{

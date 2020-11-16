@@ -4,6 +4,8 @@ header("content-type:application/json;charset=utf-8");
 include_once '../phpQuery/phpQuery/phpQuery.php';
 $start = $_GET['start'];
 $id = $_GET['id'];
+
+$arrayList = array(array('userName'=>'','commentTime'=>'','commentContent'=>'','userImage'=>''));
 //爬取豆瓣网评论
 if($start=='0'){
 	
@@ -40,7 +42,7 @@ if($start=='0'){
 }
 else{
 
-	$arrayList = array(array('userName'=>'','commentTime'=>'','commentContent'=>'','userImage'=>''));
+	
 	$url = 'https://movie.douban.com/subject/'.$id.'/comments?start='.$start.'&limit=20&status=P&sort=new_score';
 	//$url = file_get_contents($url);
 	phpQuery::newDocumentFile($url);
@@ -68,9 +70,9 @@ else{
 		$arrayList[$n]['userImage'] = pq($userImage)->attr('src');
 		$n++;
 	}
-	
 	//转换json的格式
 	echo json_encode($arrayList);
 }	
+
 
 ?>

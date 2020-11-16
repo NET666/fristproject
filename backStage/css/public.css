@@ -1,0 +1,183 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #efefef;
+}
+
+ul li {
+	list-style: none;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+.tip {
+	width: 600px;
+	margin: 0 auto;
+	margin-top: 200px;
+	z-index: 2;
+}
+/* -- 头部导航栏 -- */
+.nva {
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+	height: 50px;
+	background-color: #000000;
+	color: #a1a1a1;
+
+}
+
+.nva .nva-left {
+	float: left;
+}
+
+.nva .nva-left h3 {
+	font-size: 14px;
+	font-weight: 400;
+	margin: 14px 0px 0px 20px;
+}
+
+.nva .nva-right {
+	float: right
+}
+
+.nva .nva-right h3 {
+	font-size: 14px;
+	font-weight: 400;
+	margin: 14px 20px 0px 0px;
+}
+
+/* 内容主盒子 */
+.mian {
+	width: 100%;
+	/* height: 500px; */
+	margin-top: 50px;
+	display: none;
+}
+
+.mian-left {
+	float: left;
+	width: 200px;
+	/* height: 350px; */
+	margin: 20px 10px 0px 20px;
+}
+
+.mian-right {
+	position: relative;
+	float: left;
+	width: 1200px;
+	min-width: 500px;
+	height: 350px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.mian-right .edit {
+	position: absolute;
+	display: none;
+	top: 39px;
+}
+.mian-right  .edit input {
+	height: 20px;
+	border-radius: 3px;
+	color: #5555ff;
+}
+.mian-right  .edit button {
+	float: right;
+	margin-top: 2px;
+	width: 50px;
+	height: 30px;
+	color: white;
+	border-radius: 5px;
+	background-color: #4c46ff;
+	outline: none;
+}
+
+.mian .mian-left ul {
+	border: 1px solid #333366;
+	border-radius: 5px;
+}
+
+.mian .mian-left ul li:hover {
+	background-color: #a7a7a7;
+}
+
+.mian .mian-left ul li {
+	height: 45px;
+	line-height: 45px;
+	padding: 0px 20px;
+}
+
+.mian .mian-left ul li span {
+	float: right;
+	top: 15px;
+	right: -20px;
+	color: #3a4046;
+}
+
+.mian .header input {
+	float: left;
+	width: 300px;
+	height: 32px;
+	padding-left: 15px;
+	font-size: 15px;
+	color: #7a8793;
+	outline: #004776;
+}
+
+.mian .header button {
+	width: 50px;
+	height: 36px;
+	font-size: 15px;
+	margin-left: 5px;
+	color: white;
+	border-radius: 5px;
+	background-color: #4c46ff;
+	outline: none;
+}
+
+.mian .header a {
+	display: inline-block;
+	width: 30px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	margin-left: 50px;
+}
+
+.mian .header a:hover {
+	background-color: #909090;
+}
+
+.mian-right .list {
+	margin-top: 60px;
+}
+
+.table {
+	border: 1px solid #7d7d7d;
+}
+
+.mian-right .list .table {
+width: 100%;
+}
+
+.mian-right .list .table tr td,
+th {
+	max-width: 200px;
+	height: 30px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #070707;
+}
+
+.mian-right .list .table a {
+	padding-left: 10px;
+	color: #3448BC;
+}

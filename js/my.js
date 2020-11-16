@@ -227,6 +227,8 @@ new Vue({
 				axios.get('php/logOut.php').then(response=>{
 					this.userVrification();
 				})
+			}else if(e.target.value == '后台管理'){
+				open('backStage/index.html');
 			}
 		},
 		

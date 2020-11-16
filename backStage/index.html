@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理</title>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/public.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 头部导航栏 -->
+			<div class="nva">
+				<div class="nva-left">
+					<h3>后台管理</h3>
+				</div>
+				<div class="nva-right">
+					<h3 v-text="isGetName">用户名称</h3>
+				</div>
+			</div>
+			<!-- 头部导航栏结束 -->
+			
+			<!-- 未登录或者无权限 -->
+			<div class="tip" :style="isAdmin?disibleStyle:showStyle">
+				<h3><a href="../login.html" target="_blank" v-text="isTip">请登录</a></h3>
+			</div>
+			<!--内容主盒子  -->
+			<div class="mian" id="jumpMian" :style="isAdmin?showStyle:disibleStyle">
+				<!-- 左侧栏 -->
+				<div class="mian-left">
+					<ul>
+						<li v-for="(itme,index) in silentnva" :style="index==0?liBack:''" @click="jump(index)"><a href="#" v-text="itme"></a><span>&gt;</span></li>
+					</ul>
+				</div>
+				<!-- 右侧栏 -->
+				<div class="mian-right">
+					<div class="header">
+						<input type="text" placeholder="请输入视频名称/关键字" v-model="serach_key" @keyup.enter="getVideo" />
+						<button @click="getVideo">查询</button>
+						<button @click="add">添加</button>
+						<a href="JavaScript:void(0)" @click="back_page">&lt;</a>
+						<a href="JavaScript:void(0)" @click="next_page" v-show="isNull>=25">&gt;</a>
+					</div>
+					<div class="list">
+						<table class="table" border="0" cellspacing="0" cellpadding="10px">
+							<tr>
+								<th>选择</th>
+								<th>序号</th>
+								<th>视频评分</th>
+								<th>视频标题</th>
+								<th>视频链接</th>
+								<th>视频id</th>
+								<th>视频封面</th>
+								<th>视频类型</th>
+								<th>视频标签</th>
+							</tr>
+			
+							<tr v-for="(item,index) in video" :style="index%2==0?even:''">
+								<td><a href="javascript:void(0)" @click="edit(item.rate,item.title,item.url,item.id,item.cover,item.types,item.tag,item.number)">编辑</a>
+								<a href="javascript:void(0)" @click="del(item.title)">删除</a>
+								</td>
+								<td v-text="item.number"></td>
+								<td v-text="item.rate"></td>
+								<td v-text="item.title"></td>
+								<td v-text="item.url"></td>
+								<td v-text="item.id"></td>
+								<td v-text="item.cover"></td>
+								<td v-text="item.types"></td>
+								<td v-text="item.tag"></td>
+			
+							</tr>
+						</table>
+					</div>
+					
+					<div class="edit" :style="addOrEdit?showStyle:''">
+						<input  type="text" placeholder="视频评分/必填"  v-model="rate"/>
+						<input  type="text" placeholder="视频标题/必填"  v-model="title"/>
+						<input  type="text" placeholder="视频连接/必填"  v-model="url"/>
+						<input  type="text" placeholder="视频id/必填"    v-model="id"/>
+						<input  type="text" placeholder="视频封面/必填"  v-model="cover"/>
+						<input  type="text" placeholder="视频类型/必填"	v-model="types"/>
+						<input  type="text" placeholder="视频标签/必填"	v-model="tag"/>
+						<button type="button" @click="cance">取消</button>
+						<button type="button" @click="addSubmit">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data: {
+				//tr表格偶数时使用的背景样式
+				even: 'background-color: #c5c5c6;',
+				//控制右侧栏li标签背景
+				liBack:'background-color: #b2b2b3;',
+				//用于隐藏和显示表格(不是管理员时或未登录是将隐藏起来)
+				showStyle:'display: block !important;',
+				disibleStyle:'display: none !important;',
+				isAdmin:false,
+				//右侧栏
+				silentnva: ['视频管理', '用户管理', '评论管理', '返回首页', '退出登录'],
+				//用于接收昵称,登录后将显示昵称
+				isGetName:'未登录',
+				//数组
+				video: [],
+				//搜索
+				serach_key: '',
+				//用来分页,从0行开始取数据
+				page_start: 0,
+				//每次取25行数据
+				page_limit:25,
+				//来判断是否为最后一页,当video数组长度小于25时,说明已经是最后一页
+				isNull:25,
+				
+				addOrEdit:false,
+				//用于页面提示是否登录或者不是管理员时显示相关提示
+				isTip:'请登录',
+				//添加,编辑
+				isEditAdd:'添加',
+				rate:'',
+				title:'',
+				url:'',
+				id:'',
+				cover:'',
+				types:'',
+				tag:'',
+				numberId:-1
+				
+			},
+			methods: {
+				getVideo() {
+					axios.get('php/index_video.php', {
+						params: {
+							serach_key: this.serach_key,
+							page_start: this.page_start,
+							page_limit:this.page_limit
+						}
+					}).then(response => {
+						console.log(response.data);
+						if(response.data=="未登录"){
+							this.isAdmin = false;
+							this.isTip = '您还没有登录,点击此处马上登录!';
+						}
+						else if(response.data=="越权访问"){
+							this.isAdmin = false;
+							this.isTip = '您不是管理员,无法操作,请使用管理员身份登录,点击此处登录';
+						}
+						else{
+							this.video = response.data;
+							this.serach_key = '';
+							this.isAdmin = true;
+							//this.isNull用来判断是否为最后一页
+							if(this.page_start!=0){
+								this.isNull = this.video.length;
+							}
+						}
+					})
+				},
+				//上下翻页
+				next_page() {
+					this.page_start += 25;
+					this.getVideo();
+				},
+				back_page() {
+					if (this.page_start != 0) {
+						this.page_start -= 25;
+						this.getVideo();
+					}
+				},
+				jump(index){
+					if(index==1){
+						window.location.href = 'user.html';
+					}
+					if(index==2){
+						window.location.href = 'comment.html';
+					}
+					if(index==3){
+						window.location.href = '../index.html';
+					}
+					if(index==4){
+						axios.get('../php/logOut.php').then(response => {
+							this.getVideo();
+							this.isGetName = '登录';
+						})
+					}
+				},
+				//验证用户是否已经登录
+				userVrification: function() {
+					axios.get('../php/userVrification.php').then(response => {
+						if (response.data == false) {
+							this.isGetName = '登录';
+						} else {
+							this.isGetName = response.data;
+							console.log(response.data);
+						}
+					})
+				},
+				add(){
+					this.addOrEdit = true;
+					this.isEditAdd = '添加';
+					this.rate = '';
+					this.title = '';
+					this.url = '';
+					this.id = '';
+					this.cover = '';
+					this.types = '';
+					this.tag = '';
+				},
+				cance(){
+					this.addOrEdit = false;
+					this.isEditAdd = '添加';
+				},
+				//添加,修改数据
+				addSubmit(){
+					if(this.rate==''||this.title==''||this.url==''||this.id==''||this.cover==''||this.types==''||this.tag==''){
+						alert('请把信息填写完整');
+					}
+					else{
+						axios.get('php/index_edit_add.php',{
+							params:{
+								rate:this.rate,
+								title:this.title,
+								url:this.url,
+								id:this.id,
+								numberId:this.numberId,
+								cover:this.cover,
+								types:this.types,
+								tag:this.tag,
+								isEditAdd:this.isEditAdd
+							}
+						}).then(response => {
+							if(response.data==true){
+								alert("添加成功!");
+								this.getVideo();
+								this.isEditAdd = '添加';
+							}
+							if(response.data==false){
+								alert("该条信息已经存在");
+							}
+							if(response.data=="failed"){
+								alert("视频标题或者视频ID已经存在,请更换");
+							}
+							if(response.data=="修改成功"){
+								alert("修改成功!");
+								this.getVideo();
+								this.isEditAdd = '添加';
+								this.addOrEdit = false;
+							}
+							if(response.data=="修改失败"){
+								alert("修改失败");
+							}
+						})
+					}
+					
+				},
+				//删除
+				del(title){
+					if(confirm("您确定要执行该操作?")==true){
+						axios.get('php/index_delete.php?title='+title).then(response =>{
+							if(response.data==true){
+								alert("删除成功");
+								this.getVideo();
+							}
+							if(response.data==false){
+								alert("删除失败!");
+							}
+						})
+					}
+				},
+				//编辑修改信息
+				edit(rate,title,url,id,cover,types,tag,Id){
+					this.rate = rate;
+					this.title = title;
+					this.url = url;
+					this.id = id;
+					this.cover = cover;
+					this.types = types;
+					this.tag = tag;
+					this.numberId = Id;
+					//显示
+					this.addOrEdit = true;
+					location.href = "#jumpMian";
+					this.isEditAdd = "编辑";
+				}
+			},
+			mounted() {
+				this.getVideo();
+				this.userVrification();
+			}
+		})
+	</script>
+</html>

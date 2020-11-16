@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="referrer" content="no-referrer" />
+		<link rel="shortcut icon" href="#"/>
 		<link rel="stylesheet" type="text/css" href="css/details.css" />
 		<link rel="stylesheet" type="text/css" href="css/music.css" />
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
@@ -47,6 +48,9 @@
 				<div id="mainContent">
 					<div id="music-main">
 						<div id="music-head">
+							<marquee width="200px" behavior="scroll" scrollamount="6">
+								<strong v-text="showPlay">正在播放</strong>
+								</marquee>
 							<img src="img/search.png" @click.enter="musicSearch()">
 							<input type="text" ref="focus" placeholder="输入关键字|歌手|歌曲|按下Enter搜索" v-model="key_name" @keyup.enter="musicSearch()" />
 						</div>
@@ -58,10 +62,10 @@
 									<th>专辑</th>
 									<th>时长</th>
 								</tr>
-								<tr v-for="(itme,index) in musicList" :style="(index+1)%2==0?tableStyle:tableStyles">
-									<td v-cloak>{{index+1}}.{{itme.name}}<img class="playImg" src="img/play.png" @click="musicPlay(itme.id)" /></td>
+								<tr v-for="(itme,index) in musicList" :style="index%2==0?tableStyle:tableStyles">
+									<td v-cloak>{{index+1}}.{{itme.name}}<img class="playImg" src="img/play.png" @click="musicPlay(itme.id,itme.name)" /></td>
 									<td v-cloak>{{itme.artists[0].name}}</td>
-									<td v-cloak>{{itme.album.name}}<img :style="itme.mvid==0?MvIsvisible:playImg" src="img/MV.png" @click="playMv(itme.mvid)" /></td>
+									<td v-cloak>{{itme.album.name}}<img :style="itme.mvid==0?MvIsvisible:playImg" src="img/MV.png" @click="playMv(itme.mvid,itme.name)" /></td>
 									<td v-cloak>{{itme.duration | changeMinuteSecond}}</td>
 								</tr>
 
@@ -92,8 +96,10 @@
 				setIndex: 2,
 				hotSetIndedx: 0,
 				navigationBar: ['首页', '选影', '音乐', '关于'],
-				
-				//有mv歌曲显示图片
+				//显示是否播放
+				showPlay:'',
+				name:'',
+				//有mv歌曲显示MV图片
 				playImg: 'position: relative;width: 25px;height: 25px;display: block;',
 				MvIsvisible: 'display:none',
 				//控制tr背景背景样式
@@ -101,8 +107,8 @@
 				tableStyles: 'height: 70px;',
 				//MV视频
 				videoIsPlay: false,
-				videoMvShow: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: block;outline:none',
-				videoMvOff: 'position: absolute;width: 600px;height: 400px;margin-left: 25%;margin-top: 20%;display: none;',
+				videoMvShow: 'position: absolute;width: 600px;height: 400px;margin-left: 23%;margin-top: 10%;display: block;outline:none',
+				videoMvOff: 'position: absolute;width: 600px;height: 400px;margin-left: 23%;margin-top: 10%;display: none;',
 				
 				key_name: '梁静茹',
 				offset: 0,
@@ -150,6 +156,9 @@
 							this.userVrification();
 						})
 					}
+					else if(e.target.value =='后台管理'){
+						open('backStage/index.html');
+					}
 				},
 				//歌曲搜索
 				musicSearch() {
@@ -175,7 +184,8 @@
 					})
 				},
 				//获取音乐播放连接
-				musicPlay(id) {
+				musicPlay(id,name) {
+					this.name = name;
 					const getNowTime = Date.now();
 					axios.get('https://autumnfish.cn/song/url', {
 						params: {
@@ -184,10 +194,12 @@
 						}
 					}).then(response => {
 						this.musicUrl = response.data.data[0].url;
+						if(this.musicUrl != null){this.showPlay =  '正在播放----'+ name;}
 					})
 				},
 				//播放MV
-				playMv(mvid) {
+				playMv(mvid,name) {
+					this.showPlay =  '正在播放MV----'+ name;
 					const getNowTime = Date.now();
 					axios.get('https://autumnfish.cn/mv/url?id=' + mvid).then(response => {
 						console.log(response.data.data.url);
@@ -196,7 +208,9 @@
 						window.location.href = "#music-head";
 						//播放Mv时暂定歌曲播放
 						let myAudio = document.getElementById('music');
-						myAudio.pause();
+						if(myAudio.paused == false){
+							myAudio.pause();
+						}
 					})
 				},
 				hide() {
@@ -207,7 +221,11 @@
 					myVideo.pause();
 					//恢复播放歌曲
 					let myAudio = document.getElementById('music');
-					myAudio.play();
+					if(this.name != ''){
+						this.showPlay =  '正在播放----'+ this.name;
+						myAudio.play();
+					}
+					else{this.showPlay = '暂无播放歌曲'}
 				},
 				//上一页，下一页
 				nextPage() {

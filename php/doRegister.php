@@ -10,7 +10,7 @@ header('Content-type: text/html; charset=utf-8');
 require_once "dbServerConnect.php";
 $name = $_GET['user'];
 $password = $_GET['password'];
- $password = md5($password);//md5加密
+$password = md5($password);//md5加密
  
 $conn = new DB();
 $link = $conn->mysqlServer();
@@ -18,7 +18,7 @@ $link = $conn->mysqlServer();
 if($link){
 	 
 	  //验证用户名是否已经被注册
-	  $sql = "select name from login where username='$name'";
+	  $sql = "select username from login where username='$name'";
 	  $res = $conn->checkUser($link, $sql);
 	  if($res){
 		  echo '0'; //用户名已经存在,返回false

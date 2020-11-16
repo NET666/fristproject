@@ -1,54 +1,65 @@
-#main{
+#main {
 	width: 80%;
 	margin: 0 auto;
 	color: white;
-	margin-top: 7%; 
+	margin-top: 7%;
 	display: flex;
 	/* (row为水平方向，column为垂直方向)； */
-	flex-direction:column;
-	position: relative; 
+	flex-direction: column;
+	position: relative;
 }
-ul{
+
+ul {
 	padding: 7px;
 	text-align: center;
 }
-ul,li{
+
+ul,
+li {
 	height: 20px;
 	list-style: none;
-	
+
 }
-li{
+
+li {
 	float: left;
 	padding: 7px;
 }
-.choose a:hover{text-align: none;}
-#_title{
+
+.choose a:hover {
+	text-align: none;
+}
+
+#_title {
 	width: 100%;
 	flex: 1;
 	font-size: 18px;
 }
-#chooseBox{
+
+#chooseBox {
 	width: 100%;
 	height: 310px;
 	display: flex;
 	flex: 3;
 	position: relative;
 	/* (row为水平方向，column为垂直方向)； */
-	flex-direction:column;
+	flex-direction: column;
 }
-.choose{
+
+.choose {
 	width: 100%;
 	height: 70px;
 	flex: 1;
 	margin-top: 15px;
 }
 
-#show-list{
+#show-list {
 	position: relative;
 	width: 100%;
 	flex: 5;
 	margin-top: 10px;
 }
+
 #show-list #show {
 	float: left;
 	width: 20%;
@@ -56,6 +67,7 @@ li{
 	margin-left: 35px;
 	margin-top: 10px */
 }
+
 #show img {
 	width: 180px;
 	height: 250px;
@@ -67,9 +79,9 @@ li{
 	height: 200px;
 	width: 100%;
 	text-align: center;
-	margin-top:90% ;
+	margin-top: 90%;
 	padding: 50px;
 	margin-left: 40%;
 	font-size: 16px;
-	margin-bottom:30px ;
+	margin-bottom: 30px;
 }
