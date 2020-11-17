@@ -28,7 +28,16 @@ if($link){
 		}
 	}
 	else if($isEditAdd=="编辑"){
-		$sql = "select title,id from sitedata where title='$title' or id='$id'";
+		$numberId = $_GET['numberId'];
+		$sql = "update sitedata set rate='$rate',title='$title',url='$url',id='$id',cover='$cover',types='$types',tag='$tag' where number='$numberId'";
+		if($result = mysqli_query($link,$sql)){
+			echo "修改成功";
+		}
+		else{
+			echo "修改失败";
+		}
+		
+		/* $sql = "select title,id from sitedata where title='$title' or id='$id'";
 		$result = mysqli_query($link,$sql);
 		$res = mysqli_fetch_row($result);
 		if($res){
@@ -44,7 +53,7 @@ if($link){
 			else{
 				echo "修改失败";
 			}
-		}
+		} */
 	
 	}
 	

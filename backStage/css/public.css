@@ -166,15 +166,22 @@ a {
 .mian-right .list .table {
 width: 100%;
 }
-
-.mian-right .list .table tr td,
-th {
+/* .mian-right .list .table tr:hover{
+	background-color: #e7da4a;
+} */
+.mian-right .list .table tr td,th {
 	max-width: 200px;
 	height: 30px;
 	text-align: center;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: #070707;
+}
+.mian-right .list .table tr td:hover{
+	color: #404bdc;
+}
+.mian-right .list .table tr td a:hover{
+	color: deeppink;
 }
 
 .mian-right .list .table a {

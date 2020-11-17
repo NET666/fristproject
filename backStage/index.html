@@ -49,7 +49,7 @@
 								<th>视频评分</th>
 								<th>视频标题</th>
 								<th>视频链接</th>
-								<th>视频id</th>
+								<th>视频ID</th>
 								<th>视频封面</th>
 								<th>视频类型</th>
 								<th>视频标签</th>
@@ -241,9 +241,9 @@
 							if(response.data==false){
 								alert("该条信息已经存在");
 							}
-							if(response.data=="failed"){
+							/* if(response.data=="failed"){
 								alert("视频标题或者视频ID已经存在,请更换");
-							}
+							} */
 							if(response.data=="修改成功"){
 								alert("修改成功!");
 								this.getVideo();
