@@ -48,6 +48,19 @@ class DB{
 				return false;
 			}
 		}
+		//验证管理员身份
+		function checkAdmin($username){
+			$conn = new DB();
+			$link = $conn->mysqlServer();
+			$sql = "select * from login where username='$username'";
+			$result = mysqli_query($link,$sql);	
+			$res = mysqli_fetch_row($result);
+			if($res[4]=='1'){
+				return true;
+			}else{
+				return false;
+			}
+		}
 		//chooseMovie.php视频信息插入事件
 		function movieInsert($getData,$type,$tag,$con)
 		{

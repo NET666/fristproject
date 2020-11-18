@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(isset($_SESSION['name'])){
+	$name = $_SESSION['name'];
+}
 require_once "dbServerConnect.php";
 $dataTime = $_GET['dataTime'];
 $content = $_GET['content'];
@@ -15,13 +19,18 @@ if($link){
 		echo json_encode($res);
 	}
 	else{
-		$sql = "insert into aboutme(title,content,rq) values ('$dataTime','$content',now())";
-		$result = mysqli_query($link,$sql);
-		if($result){
-			echo '成功';
+		if($name=="陈绪运"){
+			$sql = "insert into aboutme(title,content,rq) values ('$dataTime','$content',now())";
+			$result = mysqli_query($link,$sql);
+			if($result){
+				echo '成功';
+			}
+			else{
+				echo '失败';
+			}
 		}
 		else{
-			echo '失败';
+			echo '你没有权限在此发表帖子!';
 		}
 	}
 	

@@ -1,3 +1,94 @@
+body {
+	margin: 0;
+	padding: 0;
+}
 
-					
-					
+#bigBox
+{
+	margin: 0 auto;
+	width: 100%;
+}
+.nva {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 40px;
+	background-color: #3b3b3b;
+	z-index: 1;
+}
+
+/* .nva .left {
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	margin-left: 10px; 
+} */
+.nva>img {
+	position: absolute;
+	top: 5px;
+	left: 20px;
+	width: 30px;
+}
+.nva .right {
+	float: right;
+	height: 40px;
+	margin-right: 30px;
+	line-height: 40px;
+}
+a {
+	text-decoration: none;
+	color: #b4b4b4;
+}
+#about-box {
+	width: 54%;
+	margin: 0 auto;
+	margin-top: 5%;
+}
+
+#head-title {
+	/* position: sticky;粘性布局 */
+	position: sticky;
+	top: 40px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+h2 {
+	border-bottom: #8e8e91 1px dashed;
+}
+
+#log-list {
+	width: 100%;
+	min-height: 60px;
+	/* max-height: 500px; */
+	border-bottom: #929296 1px dashed;
+	margin-top: 40px;
+	padding-bottom: 10px;
+}
+#log-list span {
+	color: #00AAFF;
+}
+#log-box #log-list a {
+	text-decoration: none;
+	color: deepskyblue;
+}
+
+#edit-log {
+	margin-top: 30px;
+	width: 100%;
+}
+
+textarea {
+	width: 100%;
+	min-height: 130px;
+	resize: none;
+	font-size: 15px;
+	
+}
+
+strong {
+	font-size: 15px;
+	color: #3d3d3d;;
+}

@@ -4,92 +4,42 @@
 		<meta charset="utf-8">
 		<title>我的毕设记录</title>
 		<meta name="referrer" content="no-referrer" />
+		<link rel="stylesheet" href="css/aboutMe.css" />
 		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 开发环境版本，包含了有帮助的命令行警告 -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<!--  axios 在线地址 -->
 		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
-		<style type="text/css">
-			body {
-				margin: 0;
-				padding: 0;
-			}
-
-			#bigBox,
-				{
-				margin: 0 auto;
-				width: 100%;
-			}
-
-			#about-box {
-				width: 54%;
-				margin: 0 auto;
-				margin-top: 1%;
-			}
-
-			#head-title {
-				width: 100%;
-				margin: 0;
-				padding: 0;
-				text-align: center;
-			}
-
-			h2 {
-				border-bottom: #8e8e91 1px dashed;
-			}
-
-			#log-list {
-				width: 100%;
-				min-height: 60px;
-				/* max-height: 500px; */
-				border-bottom: #929296 1px dashed;
-				margin-top: 40px;
-				padding-bottom: 10px;
-			}
-			#log-list span {
-				color: #00AAFF;
-			}
-
-			#edit-log {
-				margin-top: 30px;
-				width: 100%;
-			}
-
-			textarea {
-				width: 100%;
-				min-height: 130px;
-				resize: none;
-				font-size: 15px;
-				
-			}
-
-			strong {
-				font-size: 15px;
-				color: #3d3d3d;;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="bigBox">
-			<a href="index.html">&lt;点击返回首页</a>
+			<!-- 头部导航栏 -->
+			<div class="nva">
+				<!-- <div class="left"><a href="index.html">返回首页</a> </div> -->
+				<img src="img/back.png" onclick="javascript:location.href='index.html'" title="返回首页"/>
+				<div class="right" v-show="islogin!='登录'"><a href="JavaScript:void(0)" @click="logOut">注销</a></div>
+				<div class="right"><a href="JavaScript:void(0)" v-text="islogin" @click="isJump">登录</a></div>
+			</div>
+			<!--end 头部导航栏 -->
 			<div id="about-box">
 				<div id="head-title">
 					<h2>我的毕设日志</h2>
 				</div>
+				<!-- 日志内容展示区域 -->
 				<div id="log-box">
 					<div id="log-list" v-for="logContent in logArray">
 						<span v-text="logContent[0]">2020-10-19</span><br />
 						<strong v-html="logContent[1]">666</strong><br />
 					</div>
 				</div>
-
+				<!-- end 日志内容展示区域-->
 				<!-- 发表框 -->
 				<div id="edit-log" v-if="visible==true">
 					<input value="" v-model="dataTime" placeholder="输入时间" /><br /><br />
 					<textarea v-model="content"></textarea>
 					<button @click="sedLog"> 发表日志 </button>
 				</div>
-
+				<!--end 发表框 -->
 			</div>
 		</div>
 	</body>
@@ -97,10 +47,16 @@
 		new Vue({
 			el: '#bigBox',
 			data: {
+				//发表时间
 				dataTime: '',
+				//发表内容
 				content: '',
+				//接收后台返回的数据
 				logArray: [],
+				//控制编辑宽显示还是隐藏
 				visible: false,
+				//用户名
+				islogin:'登录'
 			},
 			methods: {
 				//发表评论
@@ -141,8 +97,24 @@
 						if (response.data == '陈绪运') {
 							this.visible = true;
 						}
+						if(response.data!=false){
+							this.islogin = response.data;
+						}
 					})
 				},
+				//退出登录
+				logOut(){
+					axios.get('php/logOut.php').then(response => {
+						this.userVrification();
+						this.show();
+						this.islogin = '登录'
+					})
+				},
+				isJump(){
+					if(this.islogin == '登录'){
+						window.location.href = 'login.html';
+					}
+				}
 
 			},
 			mounted() {
