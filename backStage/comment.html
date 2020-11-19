@@ -218,7 +218,9 @@
 							if(response.data==false){
 								alert("数据库不存在该用户,不能为其添加评论!");
 							}
-							
+							if(response.data=="数据库没有该用户名"){
+								alert("修改失败!原因-->数据库没有该用户名");
+							}
 							if(response.data=="修改成功"){
 								alert("修改成功!");
 								this.getVideo();

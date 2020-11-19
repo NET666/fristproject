@@ -33,14 +33,23 @@ if(isset($_SESSION['name'])){
 				}
 			}
 			else if($isEditAdd=="编辑"){
-				$id = $_GET['id'];
-				$sql = "update comment set username='$username',content='$content',video_id='$video_id' where id='$id'";
-				if($result = mysqli_query($link,$sql)){
-					echo "修改成功";
+				$sql = "select username from login where username='$username'";
+				$result = mysqli_query($link,$sql);
+				$row = mysqli_fetch_row($result);
+				if($row){
+					$id = $_GET['id'];
+					$sql = "update comment set username='$username',content='$content',video_id='$video_id' where id='$id'";
+					if($result = mysqli_query($link,$sql)){
+						echo "修改成功";
+					}
+					else{
+						echo "修改失败";
+					}
 				}
 				else{
-					echo "修改失败";
+					echo '数据库没有该用户名';
 				}
+				
 				
 			}
 			
