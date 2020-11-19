@@ -61,13 +61,23 @@ li {
 }
 
 #show-list #show {
+	position: relative;
 	float: left;
 	width: 20%;
 	/* flex: 1;
 	margin-left: 35px;
 	margin-top: 10px */
 }
-
+#show:hover .videoplay{
+	display: block;
+}
+#show .videoplay {
+	position: absolute;
+	display: none;
+	width: 180px;
+	height: 250px;
+	background: rgba(95, 95, 95, .4) url(../img/videoplay.png) no-repeat center;
+}
 #show img {
 	width: 180px;
 	height: 250px;

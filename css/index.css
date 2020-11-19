@@ -235,8 +235,10 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 /* 图片列表 */
 /*弹性布局教程 
 https://blog.csdn.net/weixin_44869002/article/details/102702965?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-102702965.nonecase&utm_term=css%E7%9B%92%E5%AD%90%E5%88%86%E5%B8%83&spm=1000.2123.3001.4430 */
+
 #listImage
-{
+{	
+	position: relative;
 	width: 200px;
 	height: 300px;
 	font-size: 13px;
@@ -246,6 +248,17 @@ https://blog.csdn.net/weixin_44869002/article/details/102702965?utm_medium=distr
 	
 	/* display:flex;
 	flex-direction:row */
+}
+
+#listImage:hover .videoplay {
+	display: block;
+}
+#listImage .videoplay {
+	position: absolute;
+	display: none;
+	width: 190px;
+	height: 250px;
+	background: rgba(95, 95, 95, 0.4) url(../img/videoplay.png) no-repeat center;
 }
 
 #listImage img{
