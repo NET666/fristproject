@@ -2,7 +2,11 @@
 <html lang="zh-CN">
 	<head>
 		<meta charset="utf-8">
-		<title>首页</title>
+		<title>网络数据采集-爬虫</title>
+		<!-- 网站说明 -->
+		<meta name="description" content="采集,爬虫,豆瓣视频采集,音乐采集,跨站请求,调用官方API" />
+		<!-- 关键字 -->
+		<meta name="keywords" content="php采集,豆瓣视频采集,音乐,电影"/>
 		<meta name="referrer" content="no-referrer" />
 		<link rel="stylesheet" href="css/index.css" />
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
@@ -44,7 +48,7 @@
 			<div id="mainContent">
 				<div id="search">
 					<!-- <img src="img/search.png" style="width: 30px;height: 30px;margin-left: 82%;float: right;position: absolute;"/> -->
-					<input type="text" v-model="valueSearch" placeholder="输入关键字/按下Enter搜索" @keyup.enter="doSearch" :style="searchStyle"/>
+					<input type="search" v-model="valueSearch" placeholder="输入关键字/按下Enter搜索" @keyup.enter="doSearch" :style="searchStyle"/>
 				</div>
 				<strong id="newRecommend">正在热映</strong>
 				<!-- rotationArr[rotationIndex]!=null:这句是判断数组是否为空,如果为空,则不进行数据渲染,
@@ -107,12 +111,12 @@
 			<!-- 页尾网站信息布局 -->
 			<div id="footer">
 				<div id="footerLeft">
-					<span><img style="width: 40px;height: 40px;border-radius: 20px;" src="img/qqhead.jpg" /></span>
+					<span><img style="width: 40px;height: 40px;border-radius: 20px;vertical-align: middle;" src="img/qqhead.jpg" /></span>
 					<a href='tencent://message/?uin=1724940500&Site=&Menu=yes' title="点击与开发者聊一聊">开发者QQ:1724940500</a>
 				</div>
 				<div id="footerMind">
 					<div>
-						<span>本站提供的播放资源均来自收集的网络接口,本站只提供web页面服务，并不提供影片资源存储，也不参与录制、上传。</span>
+						<span>本站提供的播放资源均采集于互联网,本站只提供web页面服务,并不提供影片资源存储,也不参与录制,上传。</span>
 						<a href="app/index.html" style="color: yellow;">(Android手机客户端下载)</a>
 					</div>
 				</div>

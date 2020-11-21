@@ -44,9 +44,9 @@
 						<div class="head"><span><a href="index.html">返回首页></a><a href="choose.html">返回选影></a></span><span>视频详情</span></div>
 						<div class="headtitle"><strong style="color: #b1b1b1;" v-text="videoArr.title">爱与怪物</strong></div>
 						<div id="video-details">
-							<div class="show">
-								<!-- 图片 -->
-								<img :src="image" alt="这是一张视频封图片" title="点击播放" @click="play(videoArr.title)" />
+							<div class="show" @click="play(videoArr.title)">
+								<!-- 视频图片 -->
+								<img :src="image" alt="这是一张视频封图片"/>
 							</div>
 							<div class="show-content">
 								<ul>

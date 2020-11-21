@@ -35,7 +35,7 @@
 				<!-- 右侧栏 -->
 				<div class="mian-right">
 					<div class="header">
-						<input type="text" placeholder="请输入视频名称/关键字" v-model="serach_key" @keyup.enter="getVideo" />
+						<input type="search" placeholder="请输入视频名称/关键字" v-model="serach_key" @keyup.enter="getVideo" />
 						<button @click="getVideo">查询</button>
 						<button @click="add">添加</button>
 						<a href="JavaScript:void(0)" @click="back_page">&lt;</a>
@@ -73,11 +73,11 @@
 					</div>
 					
 					<div class="edit" :style="addOrEdit?showStyle:''">
-						<input  type="text" placeholder="视频评分/必填"  v-model="rate"/>
+						<input  type="number" placeholder="视频评分/必填"  v-model="rate"/>
 						<input  type="text" placeholder="视频标题/必填"  v-model="title"/>
-						<input  type="text" placeholder="视频连接/必填"  v-model="url"/>
-						<input  type="text" placeholder="视频id/必填"    v-model="id"/>
-						<input  type="text" placeholder="视频封面/必填"  v-model="cover"/>
+						<input  type="url" placeholder="视频链接/必填"  v-model="url"/>
+						<input  type="number" placeholder="视频id/必填"    v-model="id"/>
+						<input  type="url" placeholder="视频封面/必填"  v-model="cover"/>
 						<input  type="text" placeholder="视频类型/必填"	v-model="types"/>
 						<input  type="text" placeholder="视频标签/必填"	v-model="tag"/>
 						<button type="button" @click="cance">取消</button>

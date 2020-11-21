@@ -250,7 +250,7 @@ https://blog.csdn.net/weixin_44869002/article/details/102702965?utm_medium=distr
 	flex-direction:row */
 }
 
-#listImage:hover .videoplay {
+#listImage:hover .videoplay{
 	display: block;
 }
 #listImage .videoplay {

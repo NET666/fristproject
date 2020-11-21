@@ -2,17 +2,17 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>用户管理</title>
+		<title>后台管理</title>
 		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
 		<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
-		<link rel="stylesheet" href="css/public.css"/>
+		<link rel="stylesheet" href="../backStage/css/public.css"/>
 	</head>
 	<body>
 		<div id="app">
 			<!-- 头部导航栏 -->
 			<div class="nva">
 				<div class="nva-left">
-					<h3>后台管理</h3>
+					<h3>播放记录</h3>
 				</div>
 				<div class="nva-right">
 					<h3 v-text="isGetName">用户名称</h3>
@@ -29,13 +29,13 @@
 				<!-- 左侧栏 -->
 				<div class="mian-left">
 					<ul>
-						<li v-for="(itme,index) in silentnva" :style="index==1?liBack:''" @click="jump(index)"><a href="#" v-text="itme"></a><span>&gt;</span></li>
+						<li v-for="(itme,index) in silentnva" :style="index==0?liBack:''" @click="jump(index)"><a href="#" v-text="itme"></a><span>&gt;</span></li>
 					</ul>
 				</div>
 				<!-- 右侧栏 -->
 				<div class="mian-right">
 					<div class="header">
-						<input type="search" placeholder="请输入账号昵称/关键字" v-model="serach_key" @keyup.enter="getVideo" />
+						<input type="search" placeholder="请输入视频名称/关键字" v-model="serach_key" @keyup.enter="getVideo" />
 						<button @click="getVideo">查询</button>
 						<button @click="add">添加</button>
 						<a href="JavaScript:void(0)" @click="back_page">&lt;</a>
@@ -46,30 +46,40 @@
 							<tr>
 								<th>选择</th>
 								<th>序号</th>
-								<th>用户名称</th>
-								<th>账号密码</th>
-								<th>注册时间</th>
-								<th>管理员标识</th>
+								<th>视频评分</th>
+								<th>视频标题</th>
+								<th>视频链接</th>
+								<th>视频ID</th>
+								<th>视频封面</th>
+								<th>视频类型</th>
+								<th>视频标签</th>
 							</tr>
 			
 							<tr v-for="(item,index) in video" :style="index%2==0?even:''">
-								<td><a href="javascript:void(0)" @click="edit(item.username,item.password,item.super_admin,item.id)">编辑</a>
-								<a href="javascript:void(0)" @click="del(item.username)">删除</a>
+								<td><a href="javascript:void(0)" @click="edit(item.rate,item.title,item.url,item.id,item.cover,item.types,item.tag,item.number)">编辑</a>
+								<a href="javascript:void(0)" @click="del(item.title)">删除</a>
 								</td>
+								<td v-text="item.number"></td>
+								<td v-text="item.rate"></td>
+								<td v-text="item.title"></td>
+								<td v-text="item.url"></td>
 								<td v-text="item.id"></td>
-								<td v-text="item.username"></td>
-								<td v-text="item.password"></td>
-								<td v-text="item.register_time"></td>
-								<td v-text="item.super_admin"></td>
+								<td v-text="item.cover"></td>
+								<td v-text="item.types"></td>
+								<td v-text="item.tag"></td>
 			
 							</tr>
 						</table>
 					</div>
 					
 					<div class="edit" :style="addOrEdit?showStyle:''">
-						<input  type="text" placeholder="昵称/必填"  v-model="username"/>
-						<input  type="text" placeholder="密码/必填"  v-model="password"/>
-						<input  type="number" placeholder="管理员标识/1为管理员,0为普通用户"  v-model="flag"/>
+						<input  type="number" placeholder="视频评分/必填"  v-model="rate"/>
+						<input  type="text" placeholder="视频标题/必填"  v-model="title"/>
+						<input  type="url" placeholder="视频链接/必填"  v-model="url"/>
+						<input  type="number" placeholder="视频id/必填"    v-model="id"/>
+						<input  type="url" placeholder="视频封面/必填"  v-model="cover"/>
+						<input  type="text" placeholder="视频类型/必填"	v-model="types"/>
+						<input  type="text" placeholder="视频标签/必填"	v-model="tag"/>
 						<button type="button" @click="cance">取消</button>
 						<button type="button" @click="addSubmit">提交</button>
 					</div>
@@ -111,15 +121,19 @@
 				isTip:'请登录',
 				//添加,编辑
 				isEditAdd:'添加',
-				username:'',
-				password:'',
-				flag:'',
+				rate:'',
+				title:'',
+				url:'',
+				id:'',
+				cover:'',
+				types:'',
+				tag:'',
 				numberId:-1
 				
 			},
 			methods: {
 				getVideo() {
-					axios.get('php/user_userifo.php', {
+					axios.get('php/index_video.php', {
 						params: {
 							serach_key: this.serach_key,
 							page_start: this.page_start,
@@ -158,8 +172,8 @@
 					}
 				},
 				jump(index){
-					if(index==0){
-						window.location.href = 'index.html';
+					if(index==1){
+						window.location.href = 'user.html';
 					}
 					if(index==2){
 						window.location.href = 'comment.html';
@@ -188,9 +202,13 @@
 				add(){
 					this.addOrEdit = true;
 					this.isEditAdd = '添加';
-					this.username = '';
-					this.password = '';
-					this.flag = '';
+					this.rate = '';
+					this.title = '';
+					this.url = '';
+					this.id = '';
+					this.cover = '';
+					this.types = '';
+					this.tag = '';
 				},
 				cance(){
 					this.addOrEdit = false;
@@ -198,17 +216,21 @@
 				},
 				//添加,修改数据
 				addSubmit(){
-					if(this.username==''||this.password==''||this.flag==''){
+					if(this.rate==''||this.title==''||this.url==''||this.id==''||this.cover==''||this.types==''||this.tag==''){
 						alert('请把信息填写完整');
 					}
 					else{
-						axios.get('php/user_edit_add.php',{
+						axios.get('php/index_edit_add.php',{
 							params:{
-								username:this.username,
-								password:this.password,
-								flag:this.flag,
-								isEditAdd:this.isEditAdd,
-								id:this.numberId
+								rate:this.rate,
+								title:this.title,
+								url:this.url,
+								id:this.id,
+								numberId:this.numberId,
+								cover:this.cover,
+								types:this.types,
+								tag:this.tag,
+								isEditAdd:this.isEditAdd
 							}
 						}).then(response => {
 							if(response.data==true){
@@ -219,9 +241,9 @@
 							if(response.data==false){
 								alert("该条信息已经存在");
 							}
-							if(response.data=="已存在"){
-								alert("该昵称已经存在,请更换其他昵称!");
-							}
+							/* if(response.data=="failed"){
+								alert("视频标题或者视频ID已经存在,请更换");
+							} */
 							if(response.data=="修改成功"){
 								alert("修改成功!");
 								this.getVideo();
@@ -238,7 +260,7 @@
 				//删除
 				del(title){
 					if(confirm("您确定要执行该操作?")==true){
-						axios.get('php/user_delete.php?title='+title).then(response =>{
+						axios.get('php/index_delete.php?title='+title).then(response =>{
 							if(response.data==true){
 								alert("删除成功");
 								this.getVideo();
@@ -250,11 +272,15 @@
 					}
 				},
 				//编辑修改信息
-				edit(username,password,super_admin,id){
-					this.username = username;
-					this.password = password;
-					this.flag = super_admin;
-					this.numberId = id;
+				edit(rate,title,url,id,cover,types,tag,Id){
+					this.rate = rate;
+					this.title = title;
+					this.url = url;
+					this.id = id;
+					this.cover = cover;
+					this.types = types;
+					this.tag = tag;
+					this.numberId = Id;
 					//显示
 					this.addOrEdit = true;
 					location.href = "#jumpMian";
