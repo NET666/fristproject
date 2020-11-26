@@ -2,7 +2,7 @@ new Vue({
 	el: "#biBox",
 	data: {
 		//搜索框样式
-		searchStyle:'margin-left:66%;width: 200px;outline: none;border-radius: 15px;height: 23px;background-color: #f7f7f7;color: #0080CC;border: 1px solid #6E6E6E;padding-left:10px;',
+		//searchStyle:'margin-left:80%;width: 200px;outline: none;border-radius: 15px;height: 23px;background-color: #f7f7f7;color: #0080CC;border: 1px solid #6E6E6E;padding-left:10px;',
 		//标题栏样式
 		navigationBarStyle: 'border-bottom: #ffff00 3px solid;color:white',
 		isGetName:'登录',

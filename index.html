@@ -38,7 +38,7 @@
 				<div id="titleRight">
 					<select @click="doSelect($event)" v-if='isGetName!="登录"'>
 						<option value ="设置" style="display: none;"></option>
-						<option value ="个人中心">个人中心</option>
+						<option value ="个人中心" style="display: none;">个人中心</option>
 						<option value ="后台管理">后台管理</option>
 						<option value ="退出登录" >退出登录</option>
 					</select>
@@ -47,8 +47,8 @@
 			</div>
 			<div id="mainContent">
 				<div id="search">
-					<!-- <img src="img/search.png" style="width: 30px;height: 30px;margin-left: 82%;float: right;position: absolute;"/> -->
-					<input type="search" v-model="valueSearch" placeholder="输入关键字/按下Enter搜索" @keyup.enter="doSearch" :style="searchStyle"/>
+					<!-- <img src="img/search.png" style="width: 30px;height: 30px;margin-left: 82%;float: right;position: absolute;"/> :style="searchStyle"-->
+					<input type="search" v-model="valueSearch" placeholder="输入关键字/按下Enter搜索" @keyup.enter="doSearch" class="search"/>
 				</div>
 				<strong id="newRecommend">正在热映</strong>
 				<!-- rotationArr[rotationIndex]!=null:这句是判断数组是否为空,如果为空,则不进行数据渲染,
@@ -127,5 +127,5 @@
 		</div>
 	</body>
 	<!-- js实现代码-->
-	<script type="text/javascript" src="js/my.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
 </html>

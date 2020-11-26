@@ -122,7 +122,26 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 	color: white;
 	/* border: #FFFFFF 0.125rem solid; */
 }
-
+/* 搜索框 */
+#mainContent #search {
+	position: sticky;
+	top: 10px;
+	z-index: 100;
+}
+#mainContent #search .search {
+	float: right;
+	width: 200px;
+	height: 25px;
+	border-radius: 10px;
+	outline: none;
+	box-sizing: border-box;
+}
+#mainContent #search .search::placeholder {
+	color: #550000;
+	padding-left: 5px;
+	font-size: 14px;
+	font-weight: 400;
+}
 /* 推荐标题 */
 #mainContent strong
 {
@@ -142,13 +161,18 @@ a:hover{border-bottom: 3px solid #3448bc;color: #FFFFFF;}
 /* 轮番图片 */
 #rotation img
 {
-	width: 65%;
+	float: left;
+	width: 65%; 
 	padding: 0;
 	margin: 0;
 	height: 300px;
-	float: left;
 }
-
+#rotation img {
+	transition: all 0.3s;
+}
+#rotation img:hover {
+	transform: scale(0.3,1);
+}
 
 /* 轮播图对应内容 */
 #rotation #content
@@ -244,21 +268,27 @@ https://blog.csdn.net/weixin_44869002/article/details/102702965?utm_medium=distr
 	font-size: 13px;
 	margin-left: 12px;
 	float: left;
-	display: flex|inline-flex;
-	
 	/* display:flex;
 	flex-direction:row */
 }
 
 #listImage:hover .videoplay{
-	display: block;
+	/* display: block; */
+	height: 250px;
+	width: 190px;
+	/* transform: rotate(0deg); */
 }
 #listImage .videoplay {
 	position: absolute;
-	display: none;
+	/* display: none;
 	width: 190px;
-	height: 250px;
+	height: 250px; */
+	width: 0px;
+	height: 0px;
 	background: rgba(95, 95, 95, 0.4) url(../img/videoplay.png) no-repeat center;
+	/* 旋转180度*transform: rotate(180deg);*/
+	
+	transition: all 0.1s;
 }
 
 #listImage img{

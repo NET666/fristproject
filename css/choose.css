@@ -69,14 +69,19 @@ li {
 	margin-top: 10px */
 }
 #show:hover .videoplay{
-	display: block;
+	/* display: block; */
+	height: 250px;
+	width: 180px;
 }
 #show .videoplay {
 	position: absolute;
-	display: none;
+	/* display: none;
 	width: 180px;
-	height: 250px;
+	height: 250px; */
+	width: 0px;
+	height: 0px;
 	background: rgba(95, 95, 95, .4) url(../img/videoplay.png) no-repeat center;
+	transition: all 0.1s;
 }
 #show img {
 	width: 180px;
