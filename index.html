@@ -60,7 +60,7 @@
 					<!-- 轮播图片 -->
 					<div id="image">
 						<!-- style="object-fit: cover; cover等比缩放, none-->
-						<img :src="rotationArr[rotationIndex].image"  @click="play(rotationArr[rotationIndex].title)">
+						<img :src="rotationArr[rotationIndex].image"  @click="play(rotationArr[rotationIndex].title,rotationArr[rotationIndex].url)">
 					</div>
 					<!-- 轮播图片对应内容 -->
 					<div id="content">
@@ -71,7 +71,7 @@
 							<h3 v-text="rotationArr[rotationIndex].title">哪吒</h3>
 							<span v-text="rotationArr[rotationIndex].rate==null?'暂无评分':rotationArr[rotationIndex].rate+'分'">3.5分</span>
 						</div>
-						<a href="Javascript:void(0)" target="_blank" @click="details(rotationArr[rotationIndex].url,rotationArr[rotationIndex].image,$event)">了解详情---&gt;</a>
+						<a href="Javascript:void(0)" target="_blank" @click="details(rotationArr[rotationIndex].url,rotationArr[rotationIndex].title,rotationArr[rotationIndex].image,$event)">了解详情---&gt;</a>
 					</div>
 				</div>
 				<!-- 列表区域 -->

@@ -190,6 +190,7 @@ new Vue({
 			$.cookie.raw = true;
 			$.cookie.json = true;
 			$.cookie('videoName',videoName,{path:'/'});
+			var id=id.replace(/[^0-9]/ig,"");//只保留数字,因为顶部轮番图视频id在url中,所以使用正则处理
 			$.cookie('id',id,{path:'/'});
 			window.location.href = 'history/history.html';
 			//window.open('https://v.6hu.cc/dd1/?v='+videoName);

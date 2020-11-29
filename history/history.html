@@ -91,6 +91,7 @@
 					isGetName:'登录'
 				},
 				methods: {
+					//获取视频详情
 					getDetails() {
 						$.cookie.raw = true;
 						$.cookie.json = true;
@@ -113,6 +114,7 @@
 							}
 						})
 					},
+					//获取视频评论
 					getComment(){
 						axios.get('../php/doubanComment.php',{
 							params:{
@@ -131,6 +133,7 @@
 							
 						})
 					},
+					//加载更多评论
 					loadMore(){
 						this.loadTip = '加载中....';
 						this.start +=20;
