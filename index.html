@@ -93,11 +93,11 @@
 					<!-- 视频列表 -->
 					<div id="listBox" v-for="(hot,index) in hotMovie">
 						<div id="listImage">
-							<div class="videoplay" @click="play(hot.title)"></div>
+							<div class="videoplay" @click="play(hot.title,hot.id)"></div>
 							<img :src="hot.cover"><br>
 							<strong>{{hot.rate}}分 </strong><label>{{hot.title}}<br />
-								<a @click="details(hot.id,hot.cover,$event)" style="color: #0080CC;">本站评论</a>
-								<a @click="comments(hot.id,hot.cover,$event)" style="color: hotpink;margin-left: 15px;">豆瓣评论</a></label>
+								<a @click="details(hot.id,hot.title,hot.cover,$event)" style="color: #0080CC;">本站评论</a>
+								<a @click="comments(hot.id,hot.title,hot.cover,$event)" style="color: hotpink;margin-left: 15px;">豆瓣评论</a></label>
 						</div>
 					</div>
 				</div>

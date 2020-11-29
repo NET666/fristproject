@@ -139,13 +139,19 @@ var app = new Vue({
 
 				},
 				//播放视频
-				play(videoName){
-					window.open('https://v.6hu.cc/dd1/?v='+videoName);
+				play(videoName,id){
+					$.cookie.raw = true;
+					$.cookie.json = true;
+					$.cookie('videoName',videoName,{path:'/'});
+					$.cookie('id',id,{path:'/'});
+					window.location.href = 'history/history.html';
+					//window.open('https://v.6hu.cc/dd1/?v='+videoName);
 				},
 				//视频详情
-				details(id,image){
+				details(id,videoName,image){
 					$.cookie.raw = true;//默认情况下，读取和写入 cookie 的时候自动进行编码和解码（使用 encodeURIComponent 编码，decodeURIComponent 解码）。要关闭这个功能设置 raw:true 即可
 					$.cookie.json = true;//设置 cookie 的数据使用 json 存储与读取，这时就不需要使用 JSON.stringify 和 JSON.parse 了
+					$.cookie('videoName',videoName,{path:'/'});
 					//保存视频图片网络地址视频id,用于另一个页面调用,cookie不写时间的话,关闭浏览器才会清空cookie保存的东西
 					$.cookie('iamge_url',image,{path:'/'});//保存图片链接到cookie中：path:'/'：保存路径在网站跟目录
 					var id=id.replace(/[^0-9]/ig,"");//只保留数字,因为顶部轮番图视频id在url中,所以使用正则处理

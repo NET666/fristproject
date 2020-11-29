@@ -1,0 +1,143 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+ul li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #f8f8f8;
+}
+
+.head {
+	height: 40px;
+	background-color: #313131;
+	z-index: 999;
+}
+
+.head .head-left {
+	display: flex;
+	float: left;
+	height: 100%;
+	margin-left: 10px;
+	align-items: center;
+}
+
+.head .head-left img {
+	width: 40px;
+	height: 40px;
+}
+
+
+.head .head-right {
+	float: right;
+	height: 100%;
+	line-height: 40px;
+	margin-right: 10px;
+}
+
+.head .head-right a {
+	color: white;
+	font-weight: 400;
+}
+
+.mian-content {
+	position: sticky;
+	top: 0px;
+	display: flex;
+	padding: 20px;
+	height: 400px;
+	background-color: #000000;
+	/* height: 500px; */
+}
+/* 视频播放区域 */
+.mian-content .mian-left {
+	flex: 7;
+	padding: 0px 20px 0px 30px;
+	border:1px solid rgba(255,255,255,.3);
+	height: 100%;
+}
+
+.mian-content .palyer-iframe {
+	width: 100%;
+	height: 100%;
+}
+/* 视频详情区域 */
+.mian-content .mian-rigth {
+	flex: 3;
+	display: flex;
+	padding: 0px 10px 0px 10px;
+	overflow: hidden;
+	height: 100%;
+	background-color: #2f2f2f;
+	color: #a1a1a1;
+}
+
+.mian-content .mian-rigth span {
+	display: block;
+	margin-top: 7px;
+}
+/* 评论区域 */
+.comment {
+	background-color: #000000;
+	color: white;
+	padding: 15px 10px 10px 30px;
+}
+.comment .comment-mian {
+	min-height: 65px;
+	margin: 15px 0px;
+	border-bottom: 1px dashed #96803f;
+}
+.comment .comment-mian .comment-head {
+	width: 100%;
+	height: 35px;
+}
+.comment .comment-mian .comment-head span {
+	font-size: 14px;
+}
+.comment .comment-mian .comment-head span:nth-child(1) {
+	display: inline-block;
+	width: 35px;
+	height: 100%;
+	vertical-align: middle;
+	
+}
+.comment .comment-mian .comment-head span:nth-child(2) {
+	color: #dcdf32;
+	
+}
+ .comment .comment-mian .comment-head span:nth-child(3) {
+	 color: #d8d8d8;
+ }
+.comment .comment-mian .comment-head span img {
+	width: 35px;
+	height: 35px;
+}
+.comment .comment-mian .comment-content {
+	color: #efefef;
+	text-indent: 2.5em;
+}
+.comment .load-more {
+	width: 100%;
+	text-align: center;
+}
+
+/* 尾部信息 */
+.footer {
+	display: flex;
+	height: 100px;
+	color: aliceblue;
+	font-size: 12px;
+	background-color: #2d2d2d;
+}
+.footer ul {
+	height: 100%;
+	margin-left: 30px;
+}
+.footer ul li {
+	padding: 5px 0px;
+}

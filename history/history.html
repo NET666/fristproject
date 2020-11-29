@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="referrer" content="no-referrer" />
+		<link rel="stylesheet" href="../css/history.css" />
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!--  axios 在线地址 -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+		<!-- jquery -->
+		<script src="../js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jQuery Cookie 插件在线地址用于方便获取cookie的值 -->
+		<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<title>视频播放</title>
+	</head>
+	<body>
+		<div id="app">
+			<div class="head">
+				<div class="head-left">
+					<img src="../img/back.png" onclick="Javascript:window.history.go(-1)">
+				</div>
+				<div class="head-right">
+					<a href="javascript:void(0)" v-text="isGetName" @click="isJump">登录</a>
+				</div>
+			</div>
+			<!-- 视频区 -->
+			<div class="mian-content">
+				<div class="mian-left">
+					<!-- https://v.6hu.cc/dd1/?v=姜子牙 -->
+					<iframe class="palyer-iframe" :src="playUrl" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen="true"
+					 allowtransparency="true" name='jx_play'></iframe>
+				</div>
+				<div class="mian-rigth">
+					<ul v-show="details.title!=undefied">
+						<li>
+							<strong v-text="details.title"></strong>
+							<span v-text="'导演: '+details.directors"></span>
+							<span v-text="'主演: '+details.actors"></span>
+							<span v-text="'类型: '+details.types"></span>
+							<span v-text="'上映: '+details.release_year"></span>
+							<span v-text="'片长: '+details.duration"></span>
+							<span v-text="'制片国家: '+details.region"></span>
+							<span v-text="'视频类型: '+details.subtype"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 评论区 start-->
+			<div class="comment" v-show="commetMessage[0].userImage!=undefied">
+				评论区域
+				<div class="comment-mian" v-for="content in commetMessage">
+					<div class="comment-head">
+						<span> <img :src="content.userImage" /> </span> 
+						<span v-text="content.userName"> </span> 
+						<span v-text="content.commentTime">  </span>
+					</div>
+					<div class="comment-content">
+						<span v-text="content.commentContent"></span>
+					</div>
+				</div>
+				<!-- 评论区 end-->
+				<div class="load-more">
+					<a href="javascript:void(0)" @click="loadMore" v-text="loadTip">点击加载更多</a>
+				</div>
+			</div>
+			
+			<div class="footer">
+				<ul>
+					<li>本站提供的播放资源均采集于互联网,本站只提供web页面服务,并不提供影片资源存储,也不参与录制,上传。</li>
+					<li>视频播放接口调用自第三方网站,视频中的广告,大多数来自境外非法网站,并非本站投放,请勿相信。</li>
+					<li>如有问题,请联系QQ:1724940500</li>
+				</ul>
+				
+			</div>
+			
+		</div>
+
+		<script type="text/javascript">
+			new Vue({
+				el: '#app',
+				data: {
+					details: [],
+					commetMessage:[],
+					videoId: '',
+					start:0,
+					loadTip:'点击加载更多',
+					videoName: '',
+					playUrl: 'https://v.6hu.cc/dd1/?v=',
+					isGetName:'登录'
+				},
+				methods: {
+					getDetails() {
+						$.cookie.raw = true;
+						$.cookie.json = true;
+						this.videoName = $.cookie('videoName').replace(/\"/g, "");
+						this.playUrl += this.videoName;
+						this.videoId = $.cookie('id').replace(/\"/g, "");
+						axios.get('../php/doDetails.php?id=' + this.videoId).then(res => {
+							this.details = res.data.subject;
+							console.log(this.details);
+						})
+					},
+					//验证用户是否已经登录
+					userVrification() {
+						axios.get('../php/userVrification.php').then(response => {
+							if (response.data == false) {
+								this.isGetName = '登录';
+							} else {
+								this.isGetName = response.data;
+								console.log(response.data);
+							}
+						})
+					},
+					getComment(){
+						axios.get('../php/doubanComment.php',{
+							params:{
+								id:this.videoId,
+								start:this.start,
+							}
+						}).then(response=>{
+							if(response.data[0].userName==''){
+								this.loadTip = '没有更多数据了~~~';
+								this.start -= 20;
+							}else{
+								this.commetMessage = response.data;
+								this.loadTip = '点击加载更多';
+								console.log(response.data);
+							}
+							
+						})
+					},
+					loadMore(){
+						this.loadTip = '加载中....';
+						this.start +=20;
+						axios.get('../php/doubanComment.php',{
+							params:{
+								id:this.videoId,
+								start:this.start,
+							}
+						}).then(response=>{
+							if(response.data==''){
+								this.loadTip = '没有更多数据了~~~';
+								this.start -= 20;
+							}else{
+								//向commetMessage数组追加数据
+								this.commetMessage =this.commetMessage.concat(response.data);
+								this.loadTip = '点击加载更多';
+								console.log(response.data);
+							}
+							
+						})
+						
+					},
+					isJump(){
+						if(this.isGetName == '登录'){
+							window.location.href = '../login.html';
+						}
+					},
+				},
+				mounted() {
+					this.getDetails();
+					this.userVrification();
+					this.getComment();
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -75,11 +75,11 @@
 				<!-- 影视展示列表 -->
 				<div id="show-list" v-if="videoArray!=null">
 					<div id="show" v-for="video in videoArray">
-						<div class="videoplay" @click="play(video.title)"></div>
+						<div class="videoplay" @click="play(video.title,video.id)"></div>
 						<img :src="video.cover"/><br>
 						<strong style="color: yellow;" v-text="video.rate+'分 '">7.0</strong>
 						<marquee width="100px" behavior="scroll" scrollamount="6"><span v-text="video.title">流浪地球</span></marquee> 
-						<a href="Javascript:void(0)" style="font-size: 12px;color: yellowgreen;" @click="details(video.id,video.cover)">查看详情</a>
+						<a href="Javascript:void(0)" style="font-size: 12px;color: yellowgreen;" @click="details(video.id,video.title,video.cover)">查看详情</a>
 					</div>
 					<!-- 点击加载更多 -->
 					<div class="more">

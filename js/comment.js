@@ -121,7 +121,8 @@ var app = new Vue({
 					}
 				},
 				play(videoName) {
-					window.open('https://v.6hu.cc/dd1/?v=' + videoName);
+					window.location.href = 'history/history.html';
+					//window.open('https://v.6hu.cc/dd1/?v=' + videoName);
 				}
 			},
 			mounted() {
