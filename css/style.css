@@ -30,6 +30,7 @@ body
 
 #bigBox .inputBox
 {
+	position: relative;
 	color: white;
 }
 
@@ -73,12 +74,12 @@ body
 
 #bigBox .inputBox .confirmPassword-img
 {
-	  position: relative;
-	  right: 3px;
-	  bottom: 70px;
+	  position: absolute;
+	  left: 95px;
+	  bottom: 85px; 
 	  width: 22px;
 	  height: 22px;
-	  	
+	  
 } 
 
 #bigBox .inputBox .inputText .view
@@ -96,5 +97,5 @@ body
 	position: absolute;
 	margin-top: 45px;
 	color: white;
-	margin-left: 100px;
+	margin-left: 60px;
 }
