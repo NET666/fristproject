@@ -3,5 +3,6 @@
 
 该源码网站部署教程和相关的数据库：https://gitee.com/chenxuyun/bs.git
 
+博客：https://www.52luntan.xyz/vue_blog/dist/
 如有问题，可以联系QQ：1724940500
 微信公众号：软件聚导航
